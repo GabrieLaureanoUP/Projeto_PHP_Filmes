@@ -5,12 +5,12 @@
         $url[0] = '';
     }
 
-    require "Controller/AuthController.php";
-
+    require "Controller/AuthController.php";    
     match($url[0]){
         "login" => AuthController::login(),
         "logout" => AuthController::logout(),
         "recuperar-senha" => AuthController::recuperarSenha(),
+        "cadastro" => AuthController::cadastro(),
         default => AuthController::login()
     }
 

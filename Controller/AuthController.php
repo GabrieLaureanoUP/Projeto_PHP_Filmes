@@ -102,6 +102,49 @@
             
             include __DIR__ . "/../View/usuarios/recuperarSenha.php";
         }
+
+        static function cadastro() {
+            session_start();
+            
+            if (!isset($_SESSION['csrf_token'])) {
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+            }
+            
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $csrf_token = $_POST['csrf_token'] ?? null;
+                
+                if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
+                    echo "Erro de segurança!";
+                } else {
+                    $nome = trim($_POST['nome'] ?? '');
+                    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+                    $cpf = $_POST['cpf'] ?? '';
+                    $cpf = str_replace(['.', '-', ' '], '', $cpf);
+                    $data_nascimento = $_POST['data_nascimento'] ?? '';
+                    $senha = $_POST['senha'] ?? '';
+                    $confirmar_senha = $_POST['confirmar_senha'] ?? '';
+                    
+                    if (empty($nome) || !$email || strlen($cpf) !== 11 || empty($data_nascimento)) {
+                        echo "Preencha todos os campos corretamente.";
+                    } else if (strlen($senha) < 6) {
+                        echo "A senha deve ter pelo menos 6 caracteres.";
+                    } else if ($senha !== $confirmar_senha) {
+                        echo "As senhas não coincidem.";
+                    } else {
+                        $cadastrado = Usuario::cadastrar($nome, $email, $cpf, $data_nascimento, $senha);
+                        
+                        if ($cadastrado) {
+                            echo "Cadastro realizado com sucesso! Você já pode fazer login.";
+                            header("Refresh: 3; URL=/Projeto_PHP_Filmes/index.php?p=login");
+                        } else {
+                            echo "Erro ao cadastrar. Email ou CPF já podem estar em uso.";
+                        }
+                    }
+                }
+            }
+            
+            include __DIR__ . "/../View/usuarios/cadastro.php";
+        }
     }
 
 ?>

@@ -40,4 +40,23 @@ class Usuario {
         return $stmt->execute([$senha_hash, $usuario_id]);
     }
 
+    public static function cadastrar($nome, $email, $cpf, $data_nascimento, $senha) {
+        $pdo = Database::conectar();
+        
+        $sql_verificar = "SELECT COUNT(*) FROM usuarios WHERE email = ? OR cpf = ?";
+        $stmt_verificar = $pdo->prepare($sql_verificar);
+        $stmt_verificar->execute([$email, $cpf]);
+        
+        if ($stmt_verificar->fetchColumn() > 0) {
+            return false; 
+        }
+        
+        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+        
+        $sql = "INSERT INTO usuarios (nome, email, senha, cpf, data_nasc) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        
+        return $stmt->execute([$nome, $email, $senha_hash, $cpf, $data_nascimento]);
+    }
+
 }

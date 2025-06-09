@@ -15,10 +15,9 @@
                 <input type="password" name="senha" placeholder="Senha">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <button type="submit" value="login">Entrar</button>
-            </form>
-            
-            <div class="auth-links">
-                <a href="recuperar-senha">Esqueceu sua senha?</a>
+            </form>              <div class="auth-links">
+                <a href="/Projeto_PHP_Filmes/index.php?p=recuperar-senha">Esqueceu sua senha?</a>
+                <a href="/Projeto_PHP_Filmes/index.php?p=cadastro">Criar uma conta</a>
             </div>
         </div>
     </div>
