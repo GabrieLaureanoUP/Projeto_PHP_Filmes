@@ -1,5 +1,6 @@
-<form action="" method="post">
-    Usuario: <input type="text" name="usuario">
-    Senha: <input type="password" name="senha">
-    <input type="submit" value="Login">
+<form method="POST" action="">
+    <input type="text" name="usuario" placeholder="Usuário">
+    <input type="password" name="senha" placeholder="Senha">
+    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+    <button type="submit">Entrar</button>
 </form>
