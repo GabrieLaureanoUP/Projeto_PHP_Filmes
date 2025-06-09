@@ -55,5 +55,16 @@ class Filme {
         return self::buscarFilmes();
     }
 
+    public static function buscarPorNomeOuGenero($termo) {
+    $sql = "SELECT * FROM filmes WHERE titulo LIKE :termo OR genero LIKE :termo ORDER BY titulo ASC";
+
+    $stmt = Database::conectar()->prepare($sql);
+    $stmt->execute([
+        'termo' => '%' . $termo . '%'
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 }
