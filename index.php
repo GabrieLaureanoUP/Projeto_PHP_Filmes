@@ -1,5 +1,4 @@
 <?php 
-    // site.com/noticias/economia/19 --- noticias.php?categoria=economia&id=19
 
     $pagina = $_GET['p'] ?? null;
     var_dump($pagina);
@@ -12,8 +11,10 @@
     echo "<br>";
     echo "<br>";
 
+    require "Controller/AuthController.php";
+
     match($url[0]){
-        "login" => teste,
+        "login" => AuthController::login()
     }
 
 
