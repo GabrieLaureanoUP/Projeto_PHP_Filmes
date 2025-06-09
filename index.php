@@ -1,4 +1,6 @@
-<?php     $pagina = $_GET['p'] ?? '';
+<?php     
+
+    $pagina = $_GET['p'] ?? '';
 
     $url = explode('/', $pagina);
     if (empty($url[0])) {
@@ -13,7 +15,5 @@
         "cadastro" => AuthController::cadastro(),
         default => AuthController::login()
     }
-
-
-
+    
 ?>
