@@ -10,22 +10,20 @@
 
             if (!isset($_SESSION['csrf_token'])) {
                 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            }
-
-            if ($_SERVER['REQUEST_METHOD'] === "POST") {
-                $usuario_formulario = $_POST['usuario'] ?? null;
+            }            if ($_SERVER['REQUEST_METHOD'] === "POST") {
+                $email_formulario = $_POST['email'] ?? null;
                 $senha_formulario = $_POST['senha'] ?? null;
                 $csrf_token = $_POST['csrf_token'] ?? null;
 
                 if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                    echo "Erro de segunrança!";
-                    include __DIR__ . "/../View/login.php";
+                    echo "Erro de segurança!";
+                    include __DIR__ . "/../View/usuarios/login.php";
                     return;
                 }
             
-                if (!is_null($usuario_formulario) || !is_null($senha_formulario)) {
+                if (!is_null($email_formulario) || !is_null($senha_formulario)) {
                     
-                    $resp = Usuario::fazerLogin($usuario_formulario, $senha_formulario);
+                    $resp = Usuario::fazerLogin($email_formulario, $senha_formulario);
 
                     if ($resp) {
                         echo "Sucesso!";

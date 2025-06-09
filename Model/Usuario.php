@@ -2,13 +2,11 @@
 
 require_once __DIR__ . "/../Config/BancoPdo.php";
 
-class Usuario {
-
-    public static function fazerLogin($usuario, $senha) {
-        $sql = "SELECT * FROM usuarios WHERE nome = :usuario LIMIT 1";
+class Usuario {    public static function fazerLogin($email, $senha) {
+        $sql = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
 
         $stmt = Database::conectar()->prepare($sql);
-        $stmt->execute(['usuario' => $usuario]);
+        $stmt->execute(['email' => $email]);
 
         $user = $stmt->fetch();
 
