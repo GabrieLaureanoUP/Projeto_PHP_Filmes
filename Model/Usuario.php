@@ -2,8 +2,9 @@
 
 require_once __DIR__ . "/../Config/BancoPdo.php";
 
-class Usuario {    public static function fazerLogin($email, $senha) {
-        $sql = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
+    class Usuario {    public static function fazerLogin($email, $senha) {
+        
+    $sql = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
 
         $stmt = Database::conectar()->prepare($sql);
         $stmt->execute(['email' => $email]);
@@ -21,11 +22,10 @@ class Usuario {    public static function fazerLogin($email, $senha) {
         }
 
         return false;
-    }
-
+    }    
     public static function verificarDadosRecuperacao($email, $cpf, $data_nascimento) {
         $pdo = Database::conectar();
-        $sql = "SELECT id FROM usuarios WHERE email = ? AND cpf = ? AND data_nascimento = ?";
+        $sql = "SELECT id FROM usuarios WHERE email = ? AND cpf = ? AND data_nasc = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$email, $cpf, $data_nascimento]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -56,5 +56,4 @@ class Usuario {    public static function fazerLogin($email, $senha) {
         
         return $stmt->execute([$nome, $email, $senha_hash, $cpf, $data_nascimento]);
     }
-
 }
