@@ -14,7 +14,8 @@
     require "Controller/AuthController.php";
 
     match($url[0]){
-        "login" => AuthController::login()
+        "login" => AuthController::login(),
+        "logout" => AuthController::logout()
     }
 
 

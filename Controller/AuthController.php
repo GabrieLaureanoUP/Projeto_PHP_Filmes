@@ -37,7 +37,22 @@
                 echo "Fazer Login";
             }
 
-            include __DIR__ . "/../View/login.php";
+            include __DIR__ . "/../View/usuarios/login.php";
+        }
+
+        static function logout() {
+            session_start();
+            $csrf_token = $_POST['csrf_token'] ?? null;
+            if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
+                header("Location: login");
+                exit();
+            }
+
+            session_unset();
+            session_destroy();
+
+            header("Location: login");
+            exit()  ;
         }
     }
 
