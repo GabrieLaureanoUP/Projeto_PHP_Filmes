@@ -51,5 +51,9 @@ class Filme {
         return $stmt->rowCount() > 0;
     }
 
+    public static function listarFilmes() {
+        return self::buscarFilmes();
+    }
+
 
 }
