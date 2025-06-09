@@ -1,21 +1,17 @@
-<?php 
-
-    $pagina = $_GET['p'] ?? null;
-    var_dump($pagina);
-    echo "<br>";
+<?php     $pagina = $_GET['p'] ?? '';
 
     $url = explode('/', $pagina);
-    print_r($url);
-
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
+    if (empty($url[0])) {
+        $url[0] = '';
+    }
 
     require "Controller/AuthController.php";
 
     match($url[0]){
         "login" => AuthController::login(),
-        "logout" => AuthController::logout()
+        "logout" => AuthController::logout(),
+        "recuperar-senha" => AuthController::recuperarSenha(),
+        default => AuthController::login()
     }
 
 

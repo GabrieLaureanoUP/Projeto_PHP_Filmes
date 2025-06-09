@@ -24,4 +24,20 @@ class Usuario {
 
         return false;
     }
+
+    public static function verificarDadosRecuperacao($email, $cpf, $data_nascimento) {
+        $pdo = Database::conectar();
+        $sql = "SELECT id FROM usuarios WHERE email = ? AND cpf = ? AND data_nascimento = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$email, $cpf, $data_nascimento]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function atualizarSenha($usuario_id, $senha_hash) {
+        $pdo = Database::conectar();
+        $sql = "UPDATE usuarios SET senha = ? WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
+        return $stmt->execute([$senha_hash, $usuario_id]);
+    }
+
 }
