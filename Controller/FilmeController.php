@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../Model/Filme.php';
 
 class FilmeController{
- public function index()
+ static function index()
     {
         session_start();
         if (!isset($_SESSION['csrf_token'])) {

@@ -10,30 +10,34 @@
 
             if (!isset($_SESSION['csrf_token'])) {
                 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            }            if ($_SERVER['REQUEST_METHOD'] === "POST") {
-                $email_formulario = $_POST['email'] ?? null;
-                $senha_formulario = $_POST['senha'] ?? null;
-                $csrf_token = $_POST['csrf_token'] ?? null;
+            }            
+                
+                if ($_SERVER['REQUEST_METHOD'] === "POST") {
+                    $email_formulario = $_POST['email'] ?? null;
+                    $senha_formulario = $_POST['senha'] ?? null;
+                    $csrf_token = $_POST['csrf_token'] ?? null;
 
-                if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                    echo "Erro de segurança!";
-                    include __DIR__ . "/../View/usuarios/login.php";
-                    return;
-                }
-            
-                if (!is_null($email_formulario) || !is_null($senha_formulario)) {
-                    
-                    $resp = Usuario::fazerLogin($email_formulario, $senha_formulario);
-
-                    if ($resp) {
-                        echo "Sucesso!";
-                        header("Location: dashboard");
-                    } else {
-                        echo "Erros X.x";
+                    if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
+                        echo "Erro de segurança!";
+                        include __DIR__ . "/../View/usuarios/login.php";
+                        return;
                     }
-                } 
-                echo "Fazer Login";
-            }
+                
+                    if (!is_null($email_formulario) || !is_null($senha_formulario)) {
+                        
+                        $resp = Usuario::fazerLogin($email_formulario, $senha_formulario);
+
+                        if ($resp) {
+                            echo "Sucesso!";
+                            header("Location: filmes");
+                        } else {
+                            echo "Erros X.x";
+                        }
+                    } 
+                    
+                    echo "Fazer Login";
+
+                }
 
             include __DIR__ . "/../View/usuarios/login.php";
         }
@@ -42,7 +46,7 @@
             session_start();
             $csrf_token = $_POST['csrf_token'] ?? null;
             if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                header("Location: login");
+                header("Location: dashboard");
                 exit();
             }
 
@@ -62,18 +66,20 @@
             }
             
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $csrf_token = $_POST['csrf_token'] ?? null;
+                $csrf_token = $_POST['csrf_token'] ?? null;                
+                
                 if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                    echo "Erro de segurança!";
+                    echo "Erro de segurança!";                
                 } else {
-                    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+                    $email = $_POST['email'] ?? '';
+                    $email = trim($email);
                     $cpf = $_POST['cpf'] ?? '';
                     $cpf = str_replace(['.', '-', ' '], '', $cpf); 
                     $data_nascimento = $_POST['data_nascimento'] ?? '';
                     $nova_senha = $_POST['nova_senha'] ?? '';
                     $confirmar_senha = $_POST['confirmar_senha'] ?? '';
                     
-                    if (!$email || strlen($cpf) !== 11 || empty($data_nascimento)) {
+                    if (empty($email) || strlen($cpf) !== 11 || empty($data_nascimento)) {
                         echo "Preencha todos os campos de identificação corretamente.";
                     } else if (strlen($nova_senha) < 6) {
                         echo "A senha deve ter pelo menos 6 caracteres.";
@@ -112,17 +118,17 @@
                 $csrf_token = $_POST['csrf_token'] ?? null;
                 
                 if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                    echo "Erro de segurança!";
-                } else {
+                    echo "Erro de segurança!";                } else {
                     $nome = trim($_POST['nome'] ?? '');
-                    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+                    $email = $_POST['email'] ?? '';
+                    $email = trim($email);
                     $cpf = $_POST['cpf'] ?? '';
                     $cpf = str_replace(['.', '-', ' '], '', $cpf);
                     $data_nascimento = $_POST['data_nascimento'] ?? '';
                     $senha = $_POST['senha'] ?? '';
                     $confirmar_senha = $_POST['confirmar_senha'] ?? '';
                     
-                    if (empty($nome) || !$email || strlen($cpf) !== 11 || empty($data_nascimento)) {
+                    if (empty($nome) || empty($email) || strlen($cpf) !== 11 || empty($data_nascimento)) {
                         echo "Preencha todos os campos corretamente.";
                     } else if (strlen($senha) < 6) {
                         echo "A senha deve ter pelo menos 6 caracteres.";
@@ -133,7 +139,7 @@
                         
                         if ($cadastrado) {
                             echo "Cadastro realizado com sucesso! Você já pode fazer login.";
-                            header("Refresh: 3; URL=/Projeto_PHP_Filmes/index.php?p=login");
+                            header("Location: login");
                         } else {
                             echo "Erro ao cadastrar. Email ou CPF já podem estar em uso.";
                         }
