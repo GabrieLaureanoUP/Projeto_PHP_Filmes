@@ -13,21 +13,43 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 <body>
     <header>
+        <div class="logo">
+            <span>Catálogo</span> de Filmes
+        </div>
         <nav>
-            <a href="index.php?p=listar">Home</a>
-            <?php if(!isset($_SESSION['usuario'])): ?>
-                <a href="index.php?p=login">Login</a>
-                <a href="index.php?p=cadastro">Cadastrar</a>
-            <?php else: ?>
-                <a href="index.php?p=criar">Adicionar filme</a>
-                <a href="index.php?p=listar">Logout</a>
-            <?php endif; ?>
+            <ul>
+                <!-- Home sempre visível -->
+                <li><a href="/Projeto_PHP_Filmes/index.php?p=listar">Home</a></li>
+
+                <?php if(!isset($_SESSION['usuario'])): ?>
+                    <!-- Menu para visitantes -->
+                    <li><a href="/Projeto_PHP_Filmes/index.php?p=login">Login</a></li>
+                    <li><a href="/Projeto_PHP_Filmes/index.php?p=cadastro">Cadastrar</a></li>
+                <?php else: ?>
+                    <!-- Menu para usuários logados -->
+                    <li><a href="/Projeto_PHP_Filmes/index.php?p=criar">Adicionar Filme</a></li>
+                    <li>
+                        <form method="POST" action="/Projeto_PHP_Filmes/index.php?p=logout" style="display: inline;">
+                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                <?php endif; ?>
+            </ul>
         </nav>
     </header>
+
     <main class="container">
-    <?php if (isset($_SESSION['success_message'])): ?>
-        <div class="alert alert-success">
-            <?= htmlspecialchars($_SESSION['success_message']) ?>
-        </div>
-        <?php unset($_SESSION['success_message']);
-    endif; ?>
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="alert alert-success">
+                <?= htmlspecialchars($_SESSION['success_message']) ?>
+            </div>
+            <?php unset($_SESSION['success_message']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="alert alert-danger">
+                <?= htmlspecialchars($_SESSION['error_message']) ?>
+            </div>
+            <?php unset($_SESSION['error_message']); ?>
+        <?php endif; ?>

@@ -4,39 +4,51 @@
 
     class AuthController {
         
-        static function login() {
+    static function login() {
+        session_start();
 
-            session_start();
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
 
-            if (!isset($_SESSION['csrf_token'])) {
-                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            }            if ($_SERVER['REQUEST_METHOD'] === "POST") {
-                $email_formulario = $_POST['email'] ?? null;
-                $senha_formulario = $_POST['senha'] ?? null;
-                $csrf_token = $_POST['csrf_token'] ?? null;
+        if (isset($_SESSION['usuario'])) {
+            header("Location: listar");
+            exit();
+        }
 
-                if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                    echo "Erro de segurança!";
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $email_formulario = $_POST['email'] ?? null;
+            $senha_formulario = $_POST['senha'] ?? null;
+            $csrf_token = $_POST['csrf_token'] ?? null;
+
+            if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
+                $_SESSION['error_message'] = "Erro de segurança!";
+                include __DIR__ . "/../View/usuarios/login.php";
+                return;
+            }
+        
+            if (!is_null($email_formulario) && !is_null($senha_formulario)) {
+                $usuario = Usuario::fazerLogin($email_formulario, $senha_formulario);
+
+                if ($usuario) {
+                    $_SESSION['usuario'] = [
+                        'id' => $usuario['id'],
+                        'nome' => $usuario['nome'],
+                        'email' => $usuario['email']
+                    ];
+                    $_SESSION['success_message'] = "Login realizado com sucesso!";
+                    header("Location: listar");
+                    exit();
+                } else {
+                    $_SESSION['error_message'] = "Email ou senha inválidos";
                     include __DIR__ . "/../View/usuarios/login.php";
                     return;
                 }
-            
-                if (!is_null($email_formulario) || !is_null($senha_formulario)) {
-                    
-                    $resp = Usuario::fazerLogin($email_formulario, $senha_formulario);
-
-                    if ($resp) {
-                        echo "Sucesso!";
-                        header("Location: dashboard");
-                    } else {
-                        echo "Erros X.x";
-                    }
-                } 
-                echo "Fazer Login";
             }
-
-            include __DIR__ . "/../View/usuarios/login.php";
         }
+
+        include __DIR__ . "/../View/usuarios/login.php";
+    }
 
         static function logout() {
             session_start();

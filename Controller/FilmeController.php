@@ -2,131 +2,217 @@
 
 require_once __DIR__ . '/../Model/Filme.php';
 
-class FilmeController{
- public function index()
-    {
+class FilmeController {
+    
+    static function listar() {
         session_start();
+        
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
+
         $filmes = Filme::listarFilmes();
         include __DIR__ . '/../View/filmes/listar.php';
     }
 
-    public function criar()
-    {
+    static function criar() {
         session_start();
+        
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
+
         if (!isset($_SESSION['usuario'])) {
-            header('Location: /login');
-            exit;
+            header('Location: login');
+            exit();
         }
+
         include __DIR__ . '/../View/filmes/criar.php';
     }
 
-    public function salvar()
-    {
+    static function salvar() {
         session_start();
+        
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
+
         if (!isset($_SESSION['usuario'])) {
-            header('Location: /login');
-            exit;
+            header('Location: login');
+            exit();
         }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $csrf_token = $_POST['csrf_token'] ?? null;
             if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                echo "Erro de segurança!";
-                include __DIR__ . '/../View/filmes/criar.php';
-                return;
+                $_SESSION['error_message'] = "Erro de segurança!";
+                header('Location: listar');
+                exit();
             }
-            $titulo = $_POST['titulo'];
-            $descricao = $_POST['descricao'];
-            $ano = $_POST['ano'];
-            $genero = $_POST['genero'];
-            Filme::criarFilme($titulo, $descricao, $ano, $genero);
-            header('Location: /filmes');
-            exit;
+
+            $titulo = $_POST['titulo'] ?? '';
+            $descricao = $_POST['descricao'] ?? '';
+            $ano = $_POST['ano'] ?? '';
+            $genero = $_POST['genero'] ?? '';
+
+            if (!$titulo || !$descricao || !$ano || !$genero) {
+                $_SESSION['error_message'] = "Por favor, preencha todos os campos!";
+                header('Location: criar');
+                exit();
+            }
+
+            if (Filme::criarFilme($titulo, $descricao, $ano, $genero)) {
+                $_SESSION['success_message'] = "Filme criado com sucesso!";
+                header('Location: listar');
+                exit();
+            } else {
+                $_SESSION['error_message'] = "Erro ao criar filme!";
+                header('Location: criar');
+                exit();
+            }
         }
-        include __DIR__ . '/../View/filmes/criar.php';
+
+        header('Location: criar');
+        exit();
     }
 
-    public function editar($id)
-    {
+    static function editar() {
         session_start();
+        
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
+
         if (!isset($_SESSION['usuario'])) {
-            header('Location: /login');
-            exit;
+            header('Location: login');
+            exit();
         }
+
+        $id = $_POST['id'] ?? null;
+        if (!$id) {
+            $_SESSION['error_message'] = "Filme não encontrado!";
+            header('Location: listar');
+            exit();
+        }
+
         $filme = Filme::buscarFilmes($id);
+        if (!$filme) {
+            $_SESSION['error_message'] = "Filme não encontrado!";
+            header('Location: listar');
+            exit();
+        }
+
         include __DIR__ . '/../View/filmes/editar.php';
     }
 
-    public function atualizar($id)
-    {
+    static function atualizar() {
         session_start();
+        
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
+
         if (!isset($_SESSION['usuario'])) {
-            header('Location: /login');
-            exit;
+            header('Location: login');
+            exit();
         }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $csrf_token = $_POST['csrf_token'] ?? null;
             if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                echo "Erro de segurança!";
-                include __DIR__ . '/../View/filmes/editar.php';
-                return;
+                $_SESSION['error_message'] = "Erro de segurança!";
+                header('Location: listar');
+                exit();
             }
-            $titulo = $_POST['titulo'];
-            $descricao = $_POST['descricao'];
-            $ano = $_POST['ano'];
-            $genero = $_POST['genero'];
-            Filme::atualizarFilme($id, $titulo, $descricao, $ano, $genero);
-            header('Location: /filmes');
-            exit;
+
+            $id = $_POST['id'] ?? null;
+            if (!$id) {
+                $_SESSION['error_message'] = "Filme não encontrado!";
+                header('Location: listar');
+                exit();
+            }
+
+            $filme = Filme::buscarFilmes($id);
+            if (!$filme) {
+                $_SESSION['error_message'] = "Filme não encontrado!";
+                header('Location: listar');
+                exit();
+            }
+
+            $titulo = $_POST['titulo'] ?? '';
+            $descricao = $_POST['descricao'] ?? '';
+            $ano = $_POST['ano'] ?? '';
+            $genero = $_POST['genero'] ?? '';
+
+            if (!$titulo || !$descricao || !$ano || !$genero) {
+                $_SESSION['error_message'] = "Por favor, preencha todos os campos!";
+                header('Location: listar');
+                exit();
+            }
+
+            if (Filme::atualizarFilme($id, $titulo, $descricao, $ano, $genero)) {
+                $_SESSION['success_message'] = "Filme atualizado com sucesso!";
+            } else {
+                $_SESSION['error_message'] = "Erro ao atualizar filme!";
+            }
+            header('Location: listar');
+            exit();
         }
-        $filme = Filme::buscarFilmes($id);
-        include __DIR__ . '/../View/filmes/editar.php';
     }
 
-    public function excluir($id)
-    {
+    static function excluir() {
         session_start();
+        
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
+
         if (!isset($_SESSION['usuario'])) {
-            header('Location: /login');
-            exit;
+            header('Location: login');
+            exit();
         }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $csrf_token = $_POST['csrf_token'] ?? null;
             if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                echo "Erro de segurança!";
-                return;
+                $_SESSION['error_message'] = "Erro de segurança!";
+                header('Location: listar');
+                exit();
             }
-            Filme::deletarFilme($id);
-            header('Location: /filmes');
-            exit;
+
+            $id = $_POST['id'] ?? null;
+            if (!$id) {
+                $_SESSION['error_message'] = "Filme não encontrado!";
+                header('Location: listar');
+                exit();
+            }
+
+            $filme = Filme::buscarFilmes($id);
+            if (!$filme) {
+                $_SESSION['error_message'] = "Filme não encontrado!";
+                header('Location: listar');
+                exit();
+            }
+
+            if (Filme::deletarFilme($id)) {
+                $_SESSION['success_message'] = "Filme excluído com sucesso!";
+            } else {
+                $_SESSION['error_message'] = "Erro ao excluir filme!";
+            }
         }
-        header('Location: /filmes');
+
+        header('Location: listar');
+        exit();
     }
 
-    public function buscar()
-    {
+    static function buscar() {
         session_start();
+        
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
-        $termo = isset($_GET['termo']) ? $_GET['termo'] : '';
+
+        $termo = $_GET['termo'] ?? '';
         $filmes = Filme::buscarPorNomeOuGenero($termo);
         include __DIR__ . '/../View/filmes/listar.php';
     }
