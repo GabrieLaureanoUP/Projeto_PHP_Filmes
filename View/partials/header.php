@@ -1,30 +1,33 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imdb De Livros</title>
+    <meta charset="UTF-8">
+    <title>Catálogo de filmes</title>
     <link rel="stylesheet" href="/Projeto_PHP_Filmes/assets/css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <header>        <div class="logo">IMDB<span>LIVROS</span></div>
+    <header>
         <nav>
-            <ul>
-                <li><a href="/Projeto_PHP_Filmes/">Home</a></li>
-            </ul>
-        </nav>
-        <div class="auth-buttons">
-            <?php if(isset($_SESSION['usuario_id'])): ?>
-                
-                <form action="/Projeto_PHP_Filmes/index.php?p=logout" method="post">
-                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                    <button type="submit" class="btn btn-logout">Sair</button>
-                </form>
+            <a href="index.php?p=listar">Home</a>
+            <?php if(!isset($_SESSION['usuario'])): ?>
+                <a href="index.php?p=login">Login</a>
+                <a href="index.php?p=cadastro">Cadastrar</a>
             <?php else: ?>
-                
-                <a href="/Projeto_PHP_Filmes/index.php?p=login" class="btn btn-login">Entrar</a>
+                <a href="index.php?p=criar">Adicionar filme</a>
+                <a href="index.php?p=listar">Logout</a>
             <?php endif; ?>
-        </div>
+        </nav>
     </header>
-    
-    <div class="container">
-        
+    <main class="container">
+    <?php if (isset($_SESSION['success_message'])): ?>
+        <div class="alert alert-success">
+            <?= htmlspecialchars($_SESSION['success_message']) ?>
+        </div>
+        <?php unset($_SESSION['success_message']);
+    endif; ?>
