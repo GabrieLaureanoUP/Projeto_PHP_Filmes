@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/../Model/Filme.php';
 
-class FilmeController{
- public function index()
-    {
+class FilmeController {
+    
+    static function listar() {
         session_start();
         
         if (!isset($_SESSION['csrf_token'])) {
