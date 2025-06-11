@@ -4,7 +4,7 @@ require_once __DIR__ . "/../Config/BancoPdo.php";
 
 class Filme {
 
-    public static function buscarFilmes() {
+    public static function listarFilmes() {
         $sql = "SELECT * FROM filmes ORDER BY titulo ASC";
 
         $stmt = Database::conectar()->prepare($sql);
@@ -50,9 +50,13 @@ class Filme {
 
         return $stmt->rowCount() > 0;
     }
+    public static function buscarFilmes($id) {
+        $sql = "SELECT * FROM filmes WHERE id = :id";
 
-    public static function listarFilmes() {
-        return self::buscarFilmes();
+        $stmt = Database::conectar()->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function buscarPorNomeOuGenero($termo) {

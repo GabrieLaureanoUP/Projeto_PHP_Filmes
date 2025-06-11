@@ -18,15 +18,12 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
         <nav>
             <ul>
-                <!-- Home sempre visível -->
                 <li><a href="/Projeto_PHP_Filmes/index.php?p=listar">Home</a></li>
 
                 <?php if(!isset($_SESSION['usuario'])): ?>
-                    <!-- Menu para visitantes -->
                     <li><a href="/Projeto_PHP_Filmes/index.php?p=login">Login</a></li>
                     <li><a href="/Projeto_PHP_Filmes/index.php?p=cadastro">Cadastrar</a></li>
                 <?php else: ?>
-                    <!-- Menu para usuários logados -->
                     <li><a href="/Projeto_PHP_Filmes/index.php?p=criar">Adicionar Filme</a></li>
                     <li>
                         <form method="POST" action="/Projeto_PHP_Filmes/index.php?p=logout" style="display: inline;">

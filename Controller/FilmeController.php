@@ -205,7 +205,7 @@ class FilmeController {
         exit();
     }
 
-    static function buscar() {
+    static function buscarNomeGenero() {
         session_start();
         
         if (!isset($_SESSION['csrf_token'])) {
@@ -215,5 +215,25 @@ class FilmeController {
         $termo = $_GET['termo'] ?? '';
         $filmes = Filme::buscarPorNomeOuGenero($termo);
         include __DIR__ . '/../View/filmes/listar.php';
+    }
+
+    static function detalhes() {
+        session_start();
+
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            $_SESSION['error_message'] = "Filme não encontrado!";
+            header('Location: index.php?p=listar');
+            exit();
+        }
+
+        $filme = Filme::buscarFilmes($id);
+        if (!$filme) {
+            $_SESSION['error_message'] = "Filme não encontrado!";
+            header('Location: index.php?p=listar');
+            exit();
+        }
+
+        include __DIR__ . '/../View/filmes/detalhes.php';
     }
 }

@@ -22,7 +22,8 @@
         "editar" => FilmeController::editar(),
         "atualizar" => FilmeController::atualizar(),
         "excluir" => FilmeController::excluir(),
-        "buscar" => FilmeController::buscar(),
+        "buscar" => FilmeController::buscarNomeGenero(),
+        "detalhes" => FilmeController::detalhes(),
         
         default => FilmeController::listar()
     }
