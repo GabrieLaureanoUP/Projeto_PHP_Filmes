@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Tempo de geração: 09/06/2025 às 21:12
+-- Host: 127.0.0.1
+-- Tempo de geração: 11/06/2025 às 19:46
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -58,8 +58,18 @@ CREATE TABLE `filmes` (
   `titulo` varchar(255) NOT NULL,
   `descricao` text DEFAULT NULL,
   `genero` varchar(100) DEFAULT NULL,
-  `ano` year(4) DEFAULT NULL
+  `ano` year(4) DEFAULT NULL,
+  `imagem` varchar(255) DEFAULT NULL,
+  `diretor` varchar(100) DEFAULT NULL,
+  `duracao` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `filmes`
+--
+
+INSERT INTO `filmes` (`id`, `titulo`, `descricao`, `genero`, `ano`, `imagem`, `diretor`, `duracao`) VALUES
+(2, 'Harry Potter e a Pedra Filosofal', '        Harry Potter é um garoto órfão que vive infeliz com seus tios, os Dursleys. Ele recebe uma carta contendo um convite para ingressar em Hogwarts, uma famosa escola especializada em formar jovens bruxos. Inicialmente, Harry é impedido de ler a carta por seu tio, mas logo recebe a visita de Hagrid, o guarda-caça de Hogwarts, que chega para levá-lo até a escola. Harry adentra um mundo mágico que jamais imaginara, vivendo diversas aventuras com seus novos amigos, Rony Weasley e Hermione Granger.\r\n', 'Fantasia', '2001', 'https://upload.wikimedia.org/wikipedia/pt/1/1d/Harry_Potter_Pedra_Filosofal_2001.jpg', 'Chris Columbus', 195);
 
 -- --------------------------------------------------------
 
@@ -75,6 +85,13 @@ CREATE TABLE `usuarios` (
   `cpf` varchar(14) NOT NULL,
   `data_nasc` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `cpf`, `data_nasc`) VALUES
+(1, 'joao', 'joao@gmail.com', '$2y$10$5i/fNt.xdsl4N6dRZsuBz.8.ff.RGmI7Ww4vf.5RYoNe2F5EHDHn.', '12345678910', '1998-09-15');
 
 --
 -- Índices para tabelas despejadas
@@ -129,13 +146,13 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT de tabela `filmes`
 --
 ALTER TABLE `filmes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para tabelas despejadas

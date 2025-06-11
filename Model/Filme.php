@@ -13,32 +13,36 @@ class Filme {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function criarFilme($titulo, $descricao, $ano, $genero) {
-        $sql = "INSERT INTO filmes (titulo, descricao, ano, genero) VALUES (:titulo, :descricao, :ano, :genero)";
-
+    public static function criarFilme($titulo, $descricao, $ano, $genero, $imagem, $diretor, $duracao) {
+        $sql = "INSERT INTO filmes (titulo, descricao, ano, genero, imagem, diretor, duracao)
+                VALUES (:titulo, :descricao, :ano, :genero, :imagem, :diretor, :duracao)";
         $stmt = Database::conectar()->prepare($sql);
         $stmt->execute([
             'titulo' => $titulo,
             'descricao' => $descricao,
             'ano' => $ano,
-            'genero' => $genero
+            'genero' => $genero,
+            'imagem' => $imagem,
+            'diretor' => $diretor,
+            'duracao' => $duracao
         ]);
-
         return $stmt->rowCount() > 0;
     }
 
-    public static function atualizarFilme($id, $titulo, $descricao, $ano, $genero) {
-        $sql = "UPDATE filmes SET titulo = :titulo, descricao = :descricao, ano = :ano, genero = :genero WHERE id = :id";
-
+    public static function atualizarFilme($id, $titulo, $descricao, $ano, $genero, $imagem, $diretor, $duracao) {
+        $sql = "UPDATE filmes SET titulo = :titulo, descricao = :descricao, ano = :ano, genero = :genero,
+                imagem = :imagem, diretor = :diretor, duracao = :duracao WHERE id = :id";
         $stmt = Database::conectar()->prepare($sql);
         $stmt->execute([
             'id' => $id,
             'titulo' => $titulo,
             'descricao' => $descricao,
             'ano' => $ano,
-            'genero' => $genero
+            'genero' => $genero,
+            'imagem' => $imagem,
+            'diretor' => $diretor,
+            'duracao' => $duracao
         ]);
-
         return $stmt->rowCount() > 0;
     }
 

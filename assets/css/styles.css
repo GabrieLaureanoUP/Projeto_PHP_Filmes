@@ -1,4 +1,4 @@
-/* Estilos Básicos - IMDB de Livros */
+/* Estilos Básicos */
 * {
     margin: 0;
     padding: 0;
@@ -271,11 +271,11 @@ form:not(.inline-form) {
     color: #032541;
 }
 
-.filme-item .genero,
-.filme-item .ano {
-    font-size: 0.98rem;
-    color: #555;
-    margin-bottom: 4px;
+.filme-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
 }
 
 .filme-item .descricao {
@@ -316,28 +316,22 @@ form:not(.inline-form) {
     display: block;
 }
 
-/* Cores dos botões */
 .btn-detalhes {
+    background: #032541;
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    padding: 10px 0;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    width: 100%;
+    transition: background 0.15s, color 0.15s;
+    margin-top: 20px;
+    text-decoration: none;
+}
+.btn-detalhes:hover {
     background: #01b4e4;
     color: #fff;
 }
-.btn-detalhes:hover {
-    background: #0396c7;
-}
-
-.btn-editar {
-    background: #ffc107;
-    color: #222;
-}
-.btn-editar:hover {
-    background: #e0a800;
-}
-
-.btn-excluir {
-    background: #dc3545;
-    color: #fff;
-}
-.btn-excluir:hover {
-    background: #b52a37;
-}
-

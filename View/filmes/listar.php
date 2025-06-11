@@ -6,18 +6,15 @@
         <button type="submit">Buscar</button>
     </form>
 
-    <?php if(isset($_SESSION['usuario'])): ?>
-        <div class="actions">
-            <a href="index.php?p=criar" class="btn-criar">Adicionar Novo Filme</a>
-        </div>
-    <?php endif; ?>
-
     <div class="filmes-grid">
         <?php foreach($filmes as $filme): ?>
             <div class="filme-item">
+                <img src="<?= htmlspecialchars($filme['imagem']) ?>" alt="Capa do filme" style="max-width:100%;height:auto;">
                 <h3><?= htmlspecialchars($filme['titulo']) ?></h3>
                 <p class="genero"><strong>Gênero:</strong> <?= htmlspecialchars($filme['genero']) ?></p>
                 <p class="ano"><strong>Ano:</strong> <?= htmlspecialchars($filme['ano']) ?></p>
+                <p class="diretor"><strong>Diretor:</strong> <?= htmlspecialchars($filme['diretor']) ?></p>
+                <p class="duracao"><strong>Duração:</strong> <?= htmlspecialchars($filme['duracao']) ?> min</p>
                 <?php $descricao_resumida = mb_strimwidth($filme['descricao'], 0, 100, '...');?>
                 <p class="descricao"><?= htmlspecialchars($descricao_resumida) ?></p>
 

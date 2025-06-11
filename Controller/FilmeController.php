@@ -50,10 +50,13 @@ class FilmeController {
                 exit();
             }
 
-            $titulo = $_POST['titulo'] ?? '';
-            $descricao = $_POST['descricao'] ?? '';
-            $ano = $_POST['ano'] ?? '';
-            $genero = $_POST['genero'] ?? '';
+                $titulo = $_POST['titulo'];
+                $descricao = $_POST['descricao'];
+                $ano = $_POST['ano'];
+                $genero = $_POST['genero'];
+                $imagem = $_POST['imagem'];
+                $diretor = $_POST['diretor'];
+                $duracao = $_POST['duracao'];
 
             if (!$titulo || !$descricao || !$ano || !$genero) {
                 $_SESSION['error_message'] = "Por favor, preencha todos os campos!";
@@ -61,7 +64,8 @@ class FilmeController {
                 exit();
             }
 
-            if (Filme::criarFilme($titulo, $descricao, $ano, $genero)) {
+            if (Filme::criarFilme($titulo, $descricao, 
+            $ano, $genero, $imagem, $diretor, $duracao)) {
                 $_SESSION['success_message'] = "Filme criado com sucesso!";
                 header('Location: listar');
                 exit();
@@ -139,10 +143,13 @@ class FilmeController {
                 exit();
             }
 
-            $titulo = $_POST['titulo'] ?? '';
-            $descricao = $_POST['descricao'] ?? '';
-            $ano = $_POST['ano'] ?? '';
-            $genero = $_POST['genero'] ?? '';
+            $titulo = $_POST['titulo'];
+            $descricao = $_POST['descricao'];
+            $ano = $_POST['ano'];
+            $genero = $_POST['genero'];
+            $imagem = $_POST['imagem'];
+            $diretor = $_POST['diretor'];
+            $duracao = $_POST['duracao'];
 
             if (!$titulo || !$descricao || !$ano || !$genero) {
                 $_SESSION['error_message'] = "Por favor, preencha todos os campos!";
@@ -150,7 +157,8 @@ class FilmeController {
                 exit();
             }
 
-            if (Filme::atualizarFilme($id, $titulo, $descricao, $ano, $genero)) {
+            if (Filme::atualizarFilme($id, $titulo, $descricao,
+            $ano, $genero, $imagem, $diretor, $duracao)) {
                 $_SESSION['success_message'] = "Filme atualizado com sucesso!";
             } else {
                 $_SESSION['error_message'] = "Erro ao atualizar filme!";
