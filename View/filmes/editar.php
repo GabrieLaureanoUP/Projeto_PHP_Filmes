@@ -10,13 +10,13 @@
         <input type="text" name="titulo" id="titulo" value="<?= htmlspecialchars($filme['titulo']) ?>" required>
 
         <label for="ano">Ano:</label>
-        <input type="text" name="ano" id="ano" required maxlength="4" required>
+        <input type="text" name="ano" id="ano" required maxlength="4" value="<?= htmlspecialchars($filme['ano']) ?>" required>
 
         <label for="genero">Gênero:</label>
         <input type="text" name="genero" id="genero" value="<?= htmlspecialchars($filme['genero']) ?>" required>
 
         <label for="descricao">Descrição:</label>
-        <textarea name="descricao" id="descricao" required style="height:150px; resize:none;"></textarea>
+        <textarea name="descricao" id="descricao" required style="height:150px; resize:none;"><?= htmlspecialchars($filme['descricao']) ?></textarea>
 
         <button type="submit" class="btn">Salvar Alterações</button>
     </form>
