@@ -9,6 +9,7 @@
 
     require "Controller/AuthController.php";  
     require "Controller/FilmeController.php";
+    require "Controller/AvaliacaoController.php";
   
     match($url[0]){
         "login" => AuthController::login(),
@@ -24,6 +25,8 @@
         "excluir" => FilmeController::excluir(),
         "buscar" => FilmeController::buscarNomeGenero(),
         "detalhes" => FilmeController::detalhes(),
+
+        "avaliar" => AvaliacaoController::avaliar(),
         
         default => FilmeController::listar()
     }
