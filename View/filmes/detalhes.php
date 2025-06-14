@@ -1,5 +1,6 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
 
+
 <div class="detalhes-filme">
     <img src="<?= htmlspecialchars($filme['imagem']) ?>" alt="Capa do filme" style="max-width:100%;height:auto;">
     <h2><?= htmlspecialchars($filme['titulo']) ?></h2>
@@ -14,8 +15,9 @@
     <a href="index.php?p=listar" class="btn btn-detalhes">Voltar à lista</a>
 </div>
 
-<?php 
-    include __DIR__ . '/../filmes/comentar.php'; 
+<?php
+$filme_id = $filme['id'];
+include __DIR__ . '/../filmes/comentar.php';
 ?>
 
 <?php include __DIR__ . '/../partials/footer.php'; ?>

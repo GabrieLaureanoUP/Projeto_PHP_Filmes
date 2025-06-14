@@ -29,13 +29,13 @@ class ComentarioController {
 
             if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
                 $_SESSION['error_message'] = "Erro de segurança!";
-                header("Location: index.php?p=comentar&filme_id={$filme_id}");
+                header("Location: index.php?p=detalhes&id={$filme_id}");
                 exit();
             }
 
             if (!$comentario) {
                 $_SESSION['error_message'] = "Por favor, comente algo.";
-                header("Location: index.php?p=comentar&filme_id={$filme_id}");
+                header("Location: index.php?p=detalhes&id={$filme_id}");
                 exit();
             }
 

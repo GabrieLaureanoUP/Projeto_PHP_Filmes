@@ -1,3 +1,6 @@
+<?php 
+include __DIR__ . '/../partials/header.php'; 
+?>
 <form method="POST" action="index.php?p=comentar&filme_id=<?= htmlspecialchars($filme_id) ?>">
 
     <?php if (!empty($_SESSION['error_message'])): ?>
@@ -16,3 +19,5 @@
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
     <button type="submit">Enviar Comentário</button>
 </form>
+
+<?php include __DIR__ . '/../partials/footer.php'; ?>

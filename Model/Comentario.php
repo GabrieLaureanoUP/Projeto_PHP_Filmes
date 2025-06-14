@@ -4,29 +4,35 @@ require_once __DIR__ . "/../Config/BancoPdo.php";
 
 class Comentario{
     public static function salvarComentario($filme_id, $usuario_id, $comentario){
-        $sql = "SELECT id FROM comentarios WHERE filme_id = :filme_id AND usuario_id = :usuario_id";
+        try {
+            echo '<div style="color:blue;">DEBUG: filme_id=' . htmlspecialchars($filme_id) . ' usuario_id=' . htmlspecialchars($usuario_id) . ' comentario=' . htmlspecialchars($comentario) . '</div>';
+            $sql = "SELECT id FROM comentarios WHERE filme_id = :filme_id AND usuario_id = :usuario_id";
 
-        $stmt = Database::conectar()->prepare($sql);
-        $stmt->execute([
-          'filme_id' => $filme_id,
-          'usuario_id' => $usuario_id,
-        ]);
+            $stmt = Database::conectar()->prepare($sql);
+            $stmt->execute([
+              'filme_id' => $filme_id,
+              'usuario_id' => $usuario_id,
+            ]);
 
-        if($stmt->fetch()){
-            $sql = 'UPDATE comentarios SET comentario = :comentario WHERE filme_id = :filme_id AND usuario_id = :usuario_id';
-        }else{
-            $sql = 'INSERT INTO comentarios (filme_id, usuario_id, comentario) VALUES (:filme_id, :usuario_id, :comentario)';
+            if($stmt->fetch()){
+                $sql = 'UPDATE comentarios SET comentario = :comentario WHERE filme_id = :filme_id AND usuario_id = :usuario_id';
+            }else{
+                $sql = 'INSERT INTO comentarios (filme_id, usuario_id, comentario) VALUES (:filme_id, :usuario_id, :comentario)';
+            }
+
+            $stmt = Database::conectar()->prepare($sql);
+            $result = $stmt->execute([
+                'filme_id' => $filme_id,
+                'usuario_id' => $usuario_id,
+                'comentario' => $comentario
+            ]);
+            echo '<div style="color:green;">DEBUG: execute result = ' . var_export($result, true) . '</div>';
+            return $result;
+        } catch (PDOException $e) {
+            echo '<div style="color:red;">Erro PDO: ' . htmlspecialchars($e->getMessage()) . '</div>';
+            return false;
         }
-
-        $stmt = Database::conectar()->prepare($sql);
-        return $stmt->execute([
-            'filme_id' => $filme_id,
-            'usuario_id' => $usuario_id,
-            'comentario' => $comentario
-        ]);
     }
 
 
 }
-
-?>
