@@ -25,7 +25,7 @@
         "excluir" => FilmeController::excluir(),
         "buscar" => FilmeController::buscarNomeGenero(),
         "detalhes" => FilmeController::detalhes(),
-
+        "comentar" => ComentarioController::comentar(),
         "avaliar" => AvaliacaoController::avaliar(),
         
         default => FilmeController::listar()

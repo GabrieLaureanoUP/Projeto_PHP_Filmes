@@ -14,4 +14,8 @@
     <a href="index.php?p=listar" class="btn btn-detalhes">Voltar à lista</a>
 </div>
 
+<?php 
+    include __DIR__ . '/../filmes/comentar.php'; 
+?>
+
 <?php include __DIR__ . '/../partials/footer.php'; ?>

@@ -1,7 +1,6 @@
-<form action="processa_comentario.php" method="POST">
+<form method="POST" action="index.php?p=comentar&filme_id=<?= htmlspecialchars($filme_id) ?>">
     <input type="hidden" name="filme_id" value="<?php echo $filme_id; ?>">
-    <label for="usuario">Nome:</label>
-    <input type="text" name="usuario" required>
+    <input type="hidden" name="usuario_id" value="<?php echo $usuario_id; ?>">
     
     <label for="comentario">Comentário:</label>
     <textarea name="comentario" required></textarea>
