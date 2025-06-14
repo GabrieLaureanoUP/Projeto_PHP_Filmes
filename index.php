@@ -10,6 +10,7 @@
     require "Controller/AuthController.php";  
     require "Controller/FilmeController.php";
     require "Controller/AvaliacaoController.php";
+    require "Controller/ComentarioController.php";
   
     match($url[0]){
         "login" => AuthController::login(),

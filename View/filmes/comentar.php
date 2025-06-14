@@ -13,6 +13,6 @@
     <label for="comentario">Comentário:</label>
     <textarea name="comentario" required></textarea>
     
-    <button type="submit">Enviar Comentário</button>
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+    <button type="submit">Enviar Comentário</button>
 </form>
