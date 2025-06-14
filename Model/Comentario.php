@@ -18,7 +18,15 @@ class Comentario{
             $sql = 'INSERT INTO comentarios (filme_id, usuario_id, comentario) VALUES (:filme_id, :usuario_id, :comentario)';
         }
 
+        $stmt = Database::conectar()->prepare($sql);
+        return $stmt->execute([
+            'filme_id' => $filme_id,
+            'usuario_id' => $usuario_id,
+            'comentario' => $comentario
+        ]);
     }
+
+    
 }
 
 ?>
