@@ -17,6 +17,10 @@
         <?= $media !== null ? $media : 'Ainda não há avaliações' ?>
     </p>
 
+    <p><strong>Total de avaliações:</strong> 
+        <?= $totalAvaliacoes > 0 ? $totalAvaliacoes : 'Nenhuma avaliação ainda' ?>
+    </p>
+
     <?php if(isset($_SESSION['usuario'])){
             include __DIR__ . '/../filmes/avaliar.php';
         } else { ?>

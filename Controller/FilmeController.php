@@ -277,6 +277,7 @@ class FilmeController {
         require_once __DIR__ . '/../Model/Avaliacao.php';
 
         $media = Avaliacao::calcularMediaPorFilme($id);
+        $totalAvaliacoes = Avaliacao::contarAvaliacoesPorFilme($id);
         $nota_atual = null;
 
         if (isset($_SESSION['usuario']['id'])) {
