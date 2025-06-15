@@ -31,7 +31,7 @@
         "comentar" => ComentarioController::comentar(),
         "avaliar" => AvaliacaoController::avaliar(),
         
-        default => FilmeController::listar()
+        default => FilmeController::home()
     }
     
 ?>
