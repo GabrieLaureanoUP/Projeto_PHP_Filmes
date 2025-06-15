@@ -74,5 +74,15 @@ class Filme {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function verificarFilmeExistente($titulo) {
+        $titulo = trim(strtoupper($titulo));
+        
+        $sql = "SELECT COUNT(*) FROM filmes WHERE UPPER(TRIM(titulo)) = :titulo";
+        $stmt = Database::conectar()->prepare($sql);
+        $stmt->execute(['titulo' => $titulo]);
+        
+        return $stmt->fetchColumn() > 0;
+}
+
 
 }

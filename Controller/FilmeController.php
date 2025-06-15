@@ -50,13 +50,19 @@ class FilmeController {
                 exit();
             }
 
-                $titulo = $_POST['titulo'];
-                $descricao = $_POST['descricao'];
-                $ano = $_POST['ano'];
-                $genero = $_POST['genero'];
-                $imagem = $_POST['imagem'];
-                $diretor = $_POST['diretor'];
-                $duracao = $_POST['duracao'];
+            $titulo = trim($_POST['titulo']);
+            $descricao = trim($_POST['descricao']);
+            $ano = trim($_POST['ano']);
+            $genero = trim($_POST['genero']);
+            $imagem = trim($_POST['imagem'] ?? '');
+            $diretor = trim($_POST['diretor'] ?? '');
+            $duracao = trim($_POST['duracao'] ?? '');
+
+            if (Filme::verificarFilmeExistente($titulo)) {
+                $_SESSION['error_message'] = "Já existe um filme cadastrado com este título.";
+                header('Location: criar');
+                exit();
+            }
 
             if (!$titulo || !$descricao || !$ano || !$genero) {
                 $_SESSION['error_message'] = "Por favor, preencha todos os campos!";
@@ -143,13 +149,21 @@ class FilmeController {
                 exit();
             }
 
-            $titulo = $_POST['titulo'];
-            $descricao = $_POST['descricao'];
-            $ano = $_POST['ano'];
-            $genero = $_POST['genero'];
-            $imagem = $_POST['imagem'];
-            $diretor = $_POST['diretor'];
-            $duracao = $_POST['duracao'];
+            $titulo = trim($_POST['titulo']);
+            $descricao = trim($_POST['descricao']);
+            $ano = trim($_POST['ano']);
+            $genero = trim($_POST['genero']);
+            $imagem = trim($_POST['imagem'] ?? '');
+            $diretor = trim($_POST['diretor'] ?? '');
+            $duracao = trim($_POST['duracao'] ?? '');
+
+            $filmeAtual = Filme::buscarFilmes($id);
+            if (strtoupper($filmeAtual['titulo']) !== strtoupper($titulo) && 
+                Filme::verificarFilmeExistente($titulo)) {
+                $_SESSION['error_message'] = "Já existe um filme cadastrado com este título.";
+                header('Location: editar');
+                exit();
+            }
 
             if (!$titulo || !$descricao || !$ano || !$genero) {
                 $_SESSION['error_message'] = "Por favor, preencha todos os campos!";
