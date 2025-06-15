@@ -242,6 +242,16 @@ class FilmeController {
             exit();
         }
 
+        require_once __DIR__ . '/../Model/Avaliacao.php';
+
+        $media = Avaliacao::calcularMediaPorFilme($id);
+        $nota_atual = null;
+
+        if (isset($_SESSION['usuario']['id'])) {
+            $usuario_id = $_SESSION['usuario']['id'];
+            $nota_atual = Avaliacao::NotaUsuario($id, $usuario_id);
+        }
+
         include __DIR__ . '/../View/filmes/detalhes.php';
     }
 }

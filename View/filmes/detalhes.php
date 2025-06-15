@@ -12,6 +12,17 @@
     <div class="descricao-completa">
     <?= nl2br(htmlspecialchars($filme['descricao'])) ?>
     </div>
+
+    <p><strong>Média das avaliações:</strong> 
+        <?= $media !== null ? $media : 'Ainda não há avaliações' ?>
+    </p>
+
+    <?php if(isset($_SESSION['usuario'])){
+            include __DIR__ . '/../filmes/avaliar.php';
+        } else { ?>
+            <p>Faça <a href="index.php?p=login">login</a> para avaliar este filme.</p>
+        <?php } ?>
+
     <a href="index.php?p=listar" class="btn btn-detalhes">Voltar à lista</a>
 </div>
 

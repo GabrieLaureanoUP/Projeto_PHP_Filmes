@@ -2,9 +2,11 @@
 
 require_once __DIR__ . "/../Config/BancoPdo.php";
 
-    class Usuario {    public static function fazerLogin($email, $senha) {
+    class Usuario {    
         
-    $sql = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
+    public static function fazerLogin($email, $senha) {
+        
+        $sql = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
 
         $stmt = Database::conectar()->prepare($sql);
         $stmt->execute(['email' => $email]);
@@ -12,13 +14,14 @@ require_once __DIR__ . "/../Config/BancoPdo.php";
         $user = $stmt->fetch();
 
         if ($user && password_verify($senha, $user['senha'])) {
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
-            $_SESSION['usuario_id'] = $user['id'];
-            $_SESSION['usuario_nome'] = $user['nome'];
+            // if (session_status() === PHP_SESSION_NONE) {
+            //     session_start();
+            // }
+            // $_SESSION['usuario_id'] = $user['id'];
+            // $_SESSION['usuario_nome'] = $user['nome'];
 
-            return true;
+            // return true;
+            return $user;
         }
 
         return false;
