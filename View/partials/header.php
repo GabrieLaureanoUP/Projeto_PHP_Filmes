@@ -18,7 +18,8 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
         <nav>
             <ul>
-                <li><a href="/Projeto_PHP_Filmes/index.php?p=listar">Home</a></li>
+                <li><a href="/Projeto_PHP_Filmes/index.php?p=home">Home</a></li>
+                <li><a href="/Projeto_PHP_Filmes/index.php?p=listar">Lista de Filmes</a></li>
 
                 <?php if(!isset($_SESSION['usuario'])): ?>
                     <li><a href="/Projeto_PHP_Filmes/index.php?p=login">Login</a></li>
@@ -26,9 +27,9 @@ if (session_status() === PHP_SESSION_NONE) {
                 <?php else: ?>
                     <li><a href="/Projeto_PHP_Filmes/index.php?p=criar">Adicionar Filme</a></li>
                     <li>
-                        <form method="POST" action="/Projeto_PHP_Filmes/index.php?p=logout" style="display: inline;">
+                        <form method="POST" action="/Projeto_PHP_Filmes/index.php?p=logout" class="inline-form">
                             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-                            <button type="submit">Logout</button>
+                            <button type="submit" class="nav-link">Logout</button>
                         </form>
                     </li>
                 <?php endif; ?>
