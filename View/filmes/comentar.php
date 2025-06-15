@@ -1,6 +1,4 @@
-<?php 
-include __DIR__ . '/../partials/header.php'; 
-?>
+
 <form method="POST" action="index.php?p=comentar&filme_id=<?= htmlspecialchars($filme_id) ?>">
 
     <?php if (!empty($_SESSION['error_message'])): ?>
@@ -21,22 +19,28 @@ include __DIR__ . '/../partials/header.php';
 </form>
 
 <?php
-    require_once __DIR__ . "/../Config/BancoPdo.php";
-    $sql = "SELECT usuario, comentario, data FROM comentarios WHERE filme_id = :filme_id ORDER BY data DESC";
+    require_once __DIR__ . "/../../Config/BancoPdo.php";
+    $sql = "SELECT usuario_id, comentario FROM comentarios WHERE filme_id = :filme_id";
     $stmt = Database::conectar()->prepare($sql);
-    $stmt->execute(['filme_id' => $filme_id]);
+    $stmt->execute(['filme_id' => $filme_id, 'usuario_id' => $usuario_id]);
     $comentarios = $stmt->fetchAll();
+
+    $sqlNome = "SELECT nome FROM usuarios WHERE usuario_id = :usuario_id";
+    $stmt = Database::conectar()->prepare($sql);
+    $stmt->execute(['nome' => $nomeUsuario]);
+    $usuario = $stmt->fetchAll();
+    
     
     if($comentarios){
     foreach ($comentarios as $comentario) {
         echo "<div class='comentario'>";
-        echo "<strong>" . htmlspecialchars($comentario['usuario']) . "</strong>: " . htmlspecialchars($comentario['comentario']);
-        echo "<br><small>" . date("d/m/Y H:i", strtotime($comentario['data'])) . "</small>";
+        <?php  $sqlNome = "SELECT nome FROM usuarios WHERE usuario_id = :usuario_id";
+    $stmt = Database::conectar()->prepare($sql);
+    $stmt->execute(['nome' => $nomeUsuario]);
+    $usuario = $stmt->fetchAll(); ?>
+        echo "<strong>" . $usuario . "</strong>: " . htmlspecialchars($comentario['comentario']);
         echo "</div>";
     }}else{
         echo "<strong>Nenhum comentário feito!</strong>";
     }
 ?>
-
-
-<?php include __DIR__ . '/../partials/footer.php'; ?>

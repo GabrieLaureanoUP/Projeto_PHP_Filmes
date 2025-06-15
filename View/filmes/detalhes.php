@@ -22,13 +22,11 @@
         } else { ?>
             <p>Faça <a href="index.php?p=login">login</a> para avaliar este filme.</p>
         <?php } ?>
-
+    <?php
+        $filme_id = $filme['id'];
+        include __DIR__ . '/../filmes/comentar.php';
+    ?>
     <a href="index.php?p=listar" class="btn btn-detalhes">Voltar à lista</a>
 </div>
-
-<?php
-$filme_id = $filme['id'];
-include __DIR__ . '/../filmes/comentar.php';
-?>
 
 <?php include __DIR__ . '/../partials/footer.php'; ?>

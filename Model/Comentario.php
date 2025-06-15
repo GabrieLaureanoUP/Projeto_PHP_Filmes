@@ -14,11 +14,8 @@ class Comentario{
               'usuario_id' => $usuario_id,
             ]);
 
-            if($stmt->fetch()){
-                $sql = 'UPDATE comentarios SET comentario = :comentario WHERE filme_id = :filme_id AND usuario_id = :usuario_id';
-            }else{
-                $sql = 'INSERT INTO comentarios (filme_id, usuario_id, comentario) VALUES (:filme_id, :usuario_id, :comentario)';
-            }
+        
+            $sql = 'INSERT INTO comentarios (filme_id, usuario_id, comentario) VALUES (:filme_id, :usuario_id, :comentario)';
 
             $stmt = Database::conectar()->prepare($sql);
             $result = $stmt->execute([
