@@ -4,14 +4,15 @@ require_once __DIR__ . "/../Config/BancoPdo.php";
 
 class Comentario{    
     public static function criarComentario($filme_id, $usuario_id, $texto) {
-        $sql = "INSERT INTO comentarios (filme_id, usuario_id, comentario) 
-                VALUES (:filme_id, :usuario_id, :comentario)";
+        $sql = "INSERT INTO comentarios (filme_id, usuario_id, comentario, data_comentario) 
+                VALUES (:filme_id, :usuario_id, :comentario, :data_comentario)";
                 
         $stmt = Database::conectar()->prepare($sql);
         $resultado = $stmt->execute([
             'filme_id' => $filme_id,
             'usuario_id' => $usuario_id,
-            'comentario' => $texto
+            'comentario' => $texto,
+            'data_comentario' => date('Y-m-d H:i:s')
         ]);
         
         return $resultado;
