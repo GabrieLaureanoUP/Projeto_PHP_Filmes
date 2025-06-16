@@ -15,6 +15,19 @@ class FilmeController {
         include __DIR__ . '/../View/filmes/listar.php';
     }
 
+    static function home() {
+        session_start();
+        
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        $filmesPopulares = Filme::buscarFilmesPopulares();
+        $estatisticas = Filme::getEstatisticas();
+        
+        include __DIR__ . '/../View/home.php';
+    }
+
     static function criar() {
         session_start();
         
@@ -234,8 +247,13 @@ class FilmeController {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
 
-        $termo = $_GET['termo'] ?? '';
-        $filmes = Filme::buscarPorNomeOuGenero($termo);
+        if (!isset($_GET['termo']) || empty(trim($_GET['termo']))) {
+            $filmes = Filme::listarFilmes();
+        } else {
+            $termo = trim($_GET['termo']);
+            $filmes = Filme::buscarPorNomeOuGenero($termo);
+        }
+
         include __DIR__ . '/../View/filmes/listar.php';
     }
 
@@ -259,6 +277,7 @@ class FilmeController {
         require_once __DIR__ . '/../Model/Avaliacao.php';
 
         $media = Avaliacao::calcularMediaPorFilme($id);
+        $totalAvaliacoes = Avaliacao::contarAvaliacoesPorFilme($id);
         $nota_atual = null;
 
         if (isset($_SESSION['usuario']['id'])) {

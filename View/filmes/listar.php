@@ -1,7 +1,8 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
 
 <div class="filmes-container">
-    <form method="GET" action="index.php?p=buscar" class="search-form">
+    <form method="GET" action="index.php">
+        <input type="hidden" name="p" value="buscarNomeGenero">
         <input type="text" name="termo" placeholder="Buscar por título ou gênero..." value="<?= isset($_GET['termo']) ? htmlspecialchars($_GET['termo']) : '' ?>">
         <button type="submit">Buscar</button>
     </form>

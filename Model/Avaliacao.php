@@ -37,6 +37,16 @@ class Avaliacao {
         return $resultado && $resultado['media'] !== null ? round($resultado['media'], 1) : null;
     }
     
+    public static function contarAvaliacoesPorFilme($filmeId) {
+        $sql = "SELECT COUNT(*) AS total FROM avaliacoes WHERE filme_id = :filme_id";
+
+        $stmt = Database::conectar()->prepare($sql);
+        $stmt->execute(['filme_id' => $filmeId]);
+
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado ? (int)$resultado['total'] : 0;
+    }
+
     public static function NotaUsuario($filme_id, $usuario_id) {
         $sql = "SELECT nota FROM avaliacoes WHERE filme_id = :filme_id AND usuario_id = :usuario_id";
 

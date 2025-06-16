@@ -18,18 +18,20 @@
         "recuperar-senha" => AuthController::recuperarSenha(),
         "cadastro" => AuthController::cadastro(),
 
+        "home" => FilmeController::home(),
         "listar" => FilmeController::listar(),
         "criar" => FilmeController::criar(),
         "salvar" => FilmeController::salvar(),
         "editar" => FilmeController::editar(),
         "atualizar" => FilmeController::atualizar(),
         "excluir" => FilmeController::excluir(),
-        "buscar" => FilmeController::buscarNomeGenero(),
+        "buscarNomeGenero" => FilmeController::buscarNomeGenero(),
         "detalhes" => FilmeController::detalhes(),
+
         "comentar" => ComentarioController::comentar(),
         "avaliar" => AvaliacaoController::avaliar(),
         
-        default => FilmeController::listar()
+        default => FilmeController::home()
     }
     
 ?>

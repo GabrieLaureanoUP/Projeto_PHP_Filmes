@@ -64,13 +64,16 @@ class Filme {
     }
 
     public static function buscarPorNomeOuGenero($termo) {
-        $sql = "SELECT * FROM filmes WHERE titulo LIKE :termo OR genero LIKE :termo ORDER BY titulo ASC";
-
+        $termo = trim($termo); 
+        
+        $sql = "SELECT * FROM filmes WHERE 
+                UPPER(titulo) = UPPER(:termo) OR 
+                UPPER(genero) = UPPER(:termo)
+                ORDER BY titulo ASC";
+                
         $stmt = Database::conectar()->prepare($sql);
-        $stmt->execute([
-            'termo' => '%' . $termo . '%'
-        ]);
-
+        $stmt->execute(['termo' => $termo]);
+        
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -82,7 +85,43 @@ class Filme {
         $stmt->execute(['titulo' => $titulo]);
         
         return $stmt->fetchColumn() > 0;
-}
+    }
 
+    public static function buscarFilmesPopulares($limite = 6) {
+        $sql = "SELECT f.*, 
+                COUNT(DISTINCT c.id) as total_comentarios,
+                COUNT(DISTINCT a.id) as total_avaliacoes,
+                COALESCE(AVG(a.nota), 0) as media_avaliacoes
+                FROM filmes f
+                LEFT JOIN comentarios c ON f.id = c.filme_id
+                LEFT JOIN avaliacoes a ON f.id = a.filme_id
+                GROUP BY f.id, f.titulo, f.descricao, f.ano, f.genero, f.imagem, f.diretor, f.duracao
+                ORDER BY (COUNT(DISTINCT c.id) + COUNT(DISTINCT a.id)) DESC, media_avaliacoes DESC
+                LIMIT ?";
+
+        $stmt = Database::conectar()->prepare($sql);
+        $stmt->bindValue(1, $limite, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getEstatisticas() {
+        $conn = Database::conectar();
+        
+        $sqlFilmes = "SELECT COUNT(*) FROM filmes";
+        $totalFilmes = $conn->query($sqlFilmes)->fetchColumn();
+        
+        $sqlGeneros = "SELECT genero, COUNT(*) as total 
+                    FROM filmes 
+                    GROUP BY genero 
+                    ORDER BY total DESC 
+                    LIMIT 5";
+        $generosPopulares = $conn->query($sqlGeneros)->fetchAll(PDO::FETCH_ASSOC);
+        
+        return [
+            'total_filmes' => $totalFilmes,
+            'generos_populares' => $generosPopulares
+        ];
+    }
 
 }
