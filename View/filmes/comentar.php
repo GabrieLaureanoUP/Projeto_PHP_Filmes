@@ -17,30 +17,8 @@
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
     <button type="submit">Enviar Comentário</button>
 </form>
-
 <?php
-    require_once __DIR__ . "/../../Config/BancoPdo.php";
-    $sql = "SELECT usuario_id, comentario FROM comentarios WHERE filme_id = :filme_id";
-    $stmt = Database::conectar()->prepare($sql);
-    $stmt->execute(['filme_id' => $filme_id, 'usuario_id' => $usuario_id]);
-    $comentarios = $stmt->fetchAll();
-
-    $sqlNome = "SELECT nome FROM usuarios WHERE usuario_id = :usuario_id";
-    $stmt = Database::conectar()->prepare($sql);
-    $stmt->execute(['nome' => $nomeUsuario]);
-    $usuario = $stmt->fetchAll();
-    
-    
-    if($comentarios){
-    foreach ($comentarios as $comentario) {
-        echo "<div class='comentario'>";
-        <?php  $sqlNome = "SELECT nome FROM usuarios WHERE usuario_id = :usuario_id";
-    $stmt = Database::conectar()->prepare($sql);
-    $stmt->execute(['nome' => $nomeUsuario]);
-    $usuario = $stmt->fetchAll(); ?>
-        echo "<strong>" . $usuario . "</strong>: " . htmlspecialchars($comentario['comentario']);
-        echo "</div>";
-    }}else{
-        echo "<strong>Nenhum comentário feito!</strong>";
-    }
+    require_once __DIR__ . "/../../Controller/ComentarioController.php";
+    ComentarioController::exibirComentarios($filme_id);
 ?>
+

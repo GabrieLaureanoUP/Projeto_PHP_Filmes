@@ -31,5 +31,17 @@ class Comentario{
         }
     }
 
+    public static function obterComentariosPorFilme($filme_id) {
+        $sql = "SELECT usuario_id, comentario FROM comentarios WHERE filme_id = :filme_id";
+        $stmt = Database::conectar()->prepare($sql);
+        $stmt->execute(['filme_id' => $filme_id]);
+        return $stmt->fetchAll();
+    }
 
+    public static function obterNomeUsuario($usuario_id) {
+        $sql = "SELECT nome FROM usuarios WHERE id = :usuario_id";
+        $stmt = Database::conectar()->prepare($sql);
+        $stmt->execute(['usuario_id' => $usuario_id]);
+        return $stmt->fetch();
+    }
 }

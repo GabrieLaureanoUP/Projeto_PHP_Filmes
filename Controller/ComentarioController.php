@@ -1,5 +1,8 @@
 <?php
 require_once __DIR__ . '/../Model/Comentario.php';
+require_once __DIR__ . "/../Config/BancoPdo.php";
+
+
 
 class ComentarioController {
     public static function comentar() {
@@ -49,6 +52,38 @@ class ComentarioController {
 
             header("Location: index.php?p=detalhes&id={$filme_id}");
             exit();
+        }
+    }
+
+    public static function exibirComentarios($filme_id) {
+        $comentarios = Comentario::obterComentariosPorFilme($filme_id);
+        echo '<link rel="stylesheet" href="styleComentarios.css">';
+        if ($comentarios) {
+           echo '<div class="comentarios-wrapper">';
+
+            foreach ($comentarios as $comentario) {
+                echo '<div class="comentario-container">';
+
+                $usuario = Comentario::obterNomeUsuario($comentario['usuario_id']);
+                if ($usuario) {
+                    echo '<div class="usuario-nome">' . htmlspecialchars($usuario['nome']) . '</div>';
+                } else {
+                    echo '<div class="usuario-nome">Usuário não encontrado</div>';
+                }
+
+                echo '<div class="comentario-texto">' . htmlspecialchars($comentario['comentario']) . '</div>';
+
+                echo '<div class="botoes">';
+                echo '<button class="botao botao-editar">Editar</button>';
+                echo '<button class="botao botao-excluir">Excluir</button>';
+                echo '</div>';
+
+                echo '</div>';
+            }
+
+            echo '</div>';
+        } else {
+            echo '<div class="nenhum-comentario"><strong>Nenhum comentário feito!</strong></div>';
         }
     }
 }
