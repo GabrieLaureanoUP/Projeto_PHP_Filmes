@@ -17,7 +17,6 @@
         <?= $media !== null ? $media : 'Ainda não há avaliações' ?>
     </p>
 
-<<<<<<< HEAD
         <?php if(isset($_SESSION['usuario'])): ?>
             <form method="POST" action="index.php?p=salvar_avaliacao" class="avaliacao-form">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
@@ -61,7 +60,3 @@
 </div>
 
 <?php include __DIR__ . '/../partials/footer.php'; ?>
-=======
-    <p><strong>Total de avaliações:</strong> 
-        <?= $totalAvaliacoes > 0 ? $totalAvaliacoes : 'Nenhuma avaliação ainda' ?>
->>>>>>> b84a8710e877aac9d0a929206f91b0680f794de0

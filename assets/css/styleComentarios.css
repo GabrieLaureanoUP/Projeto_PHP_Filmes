@@ -17,10 +17,12 @@ body {
 }
 .comentario {
     border-bottom: 1px solid #e0e0e0;
-    padding: 15px 0 10px 0;
+    padding: 15px 0 28px 0; /* espaço extra para os botões */
     display: flex;
     flex-direction: column;
     position: relative;
+    background: #fff;
+    min-height: 70px;
 }
 .comentario:last-child {
     border-bottom: none;
@@ -46,26 +48,32 @@ body {
 }
 .comentario-botoes {
     display: flex;
-    gap: 8px;
+    gap: 4px;
     position: absolute;
-    right: 16px;
-    bottom: 10px;
+    right: 12px;
+    bottom: 8px;
+    z-index: 2;
+    align-items: flex-end;
 }
 .comentario-botoes button {
-    background: none;
+    background: transparent;
     border: none;
-    color: #111;
-    font-size: 0.97em;
-    padding: 2px 10px;
-    border-radius: 4px;
+    color: #050505;
+    font-size: 13px;
+    padding: 2px 6px;
+    border-radius: 3px;
     cursor: pointer;
-    transition: background 0.2s;
-    box-shadow: none;
     font-weight: 500;
+    transition: background 0.15s;
+    line-height: 1.2;
+    min-width: unset;
+    min-height: unset;
+    box-shadow: none;
+    outline: none;
 }
 .comentario-botoes button:hover {
-    background: #f3f4f6;
-    color: #111;
+    background: #f0f2f5;
+    color: #050505;
 }
 .sem-comentarios {
     color: #888;
@@ -119,4 +127,65 @@ body {
 
 .botao:hover {
     opacity: 0.8;
+}
+
+.editar-comentario-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 32px 28px 24px 28px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+.titulo-editar-comentario {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #222;
+    font-weight: 600;
+    font-size: 1.5em;
+}
+.label-editar-comentario {
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-bottom: 6px;
+}
+.textarea-editar-comentario {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1.05em;
+    resize: vertical;
+    min-height: 90px;
+    box-sizing: border-box;
+}
+.btn-editar-comentario {
+    width: 100%;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 0;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.08em;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+}
+.btn-editar-comentario:hover {
+    background: #1746a2;
+}
+
+@media (max-width: 600px) {
+    .comentario-botoes {
+        right: 4px;
+        bottom: 4px;
+    }
+    .comentario-botoes button {
+        font-size: 12px;
+        padding: 2px 4px;
+    }
 }

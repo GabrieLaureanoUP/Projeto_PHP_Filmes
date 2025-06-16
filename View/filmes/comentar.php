@@ -17,7 +17,6 @@
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
     <button type="submit">Enviar Comentário</button>
 </form>
-<<<<<<< HEAD
 
 <?php
 require_once __DIR__ . '/../../Model/Comentario.php';
@@ -34,7 +33,7 @@ if (!empty($comentarios) && is_array($comentarios)): ?>
                 <p class="comentario-texto"><?= nl2br(htmlspecialchars($comentario['texto'])) ?></p>
                 <?php if ($usuario_logado && $usuario_logado == $comentario['usuario_id']): ?>
                 <div class="comentario-botoes">
-                    <form method="POST" action="index.php?p=editarComentario" style="display:inline;">
+                    <form method="POST" action="index.php?p=editarComentario&id=<?= htmlspecialchars($comentario['id']) ?>" style="display:inline;">
                         <input type="hidden" name="comentario_id" value="<?= $comentario['id'] ?>">
                         <input type="hidden" name="filme_id" value="<?= $filme_id ?>">
                         <button type="submit">Editar</button>
@@ -52,10 +51,4 @@ if (!empty($comentarios) && is_array($comentarios)): ?>
 <?php else: ?>
     <p class="sem-comentarios">Ainda não há comentários para este filme.</p>
 <?php endif; ?>
-=======
-<?php
-    require_once __DIR__ . "/../../Controller/ComentarioController.php";
-    ComentarioController::exibirComentarios($filme_id);
-?>
->>>>>>> b84a8710e877aac9d0a929206f91b0680f794de0
 
