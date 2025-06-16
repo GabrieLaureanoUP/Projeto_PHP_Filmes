@@ -914,6 +914,218 @@ form:not(.inline-form) {
     transform: translateY(-2px);
 }
 
+.lista-comentarios {
+    margin-top: 30px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(1,180,228,0.08);
+}
+.comentario {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 18px 0 32px 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #f8f9fa;
+    min-height: 70px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 4px rgba(1,180,228,0.04);
+}
+.comentario:last-child {
+    border-bottom: none;
+}
+.comentario-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+.comentario-header strong {
+    color: #01b4e4;
+    font-size: 1.1em;
+}
+.comentario-header .data {
+    color: #888;
+    font-size: 0.95em;
+}
+.comentario-texto {
+    margin: 0 0 8px 0;
+    color: #222;
+    font-size: 1.08em;
+    line-height: 1.7;
+}
+.comentario-botoes {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    right: 18px;
+    bottom: 12px;
+    z-index: 2;
+    align-items: flex-end;
+}
+.comentario-botoes button {
+    background: #01b4e4;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.15s;
+    min-width: unset;
+    min-height: unset;
+    box-shadow: none;
+    outline: none;
+}
+.comentario-botoes button:hover {
+    background: #0396c7;
+}
+
+.sem-comentarios {
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+    text-align: center;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 18px 0;
+}
+
+/* Formulário de Comentário */
+form[action*="comentar"] {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(1,180,228,0.08);
+    padding: 28px 24px 18px 24px;
+    margin-bottom: 30px;
+    max-width: 700px;
+}
+form[action*="comentar"] label {
+    color: #032541;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+form[action*="comentar"] textarea {
+    width: 100%;
+    min-height: 90px;
+    border-radius: 6px;
+    border: 1px solid #cce6f6;
+    padding: 10px 12px;
+    font-size: 1.08em;
+    margin-bottom: 14px;
+    background: #f8f9fa;
+    color: #222;
+    transition: border 0.2s;
+}
+form[action*="comentar"] textarea:focus {
+    border: 1.5px solid #01b4e4;
+    outline: none;
+}
+form[action*="comentar"] button[type="submit"] {
+    background: #01b4e4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 28px;
+    font-size: 1.05em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+form[action*="comentar"] button[type="submit"]:hover {
+    background: #0396c7;
+}
+
+/* Avaliação - Select e Botão */
+form[action*="avaliar"] {
+    background: linear-gradient(135deg, #032541 0%, #01b4e4 100%);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(1,180,228,0.08);
+    padding: 28px 24px 18px 24px;
+    margin-bottom: 30px;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #fff;
+    text-align: center;
+}
+form[action*="avaliar"] label {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+    font-size: 1.08em;
+}
+form[action*="avaliar"] select {
+    width: 60%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1.5px solid #01b4e4;
+    font-size: 1.08em;
+    margin-bottom: 16px;
+    background: #f8f9fa;
+    color: #032541;
+    transition: border 0.2s;
+    text-align: center;
+    font-weight: bold;
+}
+form[action*="avaliar"] select:focus {
+    border: 2px solid #fff;
+    outline: none;
+}
+form[action*="avaliar"] button[type="submit"] {
+    background: #fff;
+    color: #01b4e4;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 28px;
+    font-size: 1.05em;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+form[action*="avaliar"] button[type="submit"]:hover {
+    background: #01b4e4;
+    color: #fff;
+}
+
+/* Média das avaliações */
+.detalhes-filme p strong,
+.media-avaliacoes,
+p:has(strong:contains("Média das avaliações")) {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #032541;
+    font-weight: bold;
+    font-size: 1.18em;
+    padding: 8px 22px;
+    border-radius: 22px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(1,180,228,0.06);
+    letter-spacing: 0.5px;
+}
+.detalhes-filme p strong {
+    margin-right: 8px;
+}
+.detalhes-filme p {
+    margin-bottom: 18px;
+}
+
+/* Responsivo */
+@media (max-width: 700px) {
+    .lista-comentarios,
+    form[action*="comentar"] {
+        padding: 10px;
+        max-width: 98vw;
+    }
+    form[action*="avaliar"] {
+        max-width: 98vw;
+        padding: 16px 6vw;
+    }
+}
 /* Responsividade */
 @media (max-width: 768px) {
     .welcome-section h1 {

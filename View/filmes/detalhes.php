@@ -28,10 +28,7 @@
     </div>
 
     </div>
-    <?php
-        $filme_id = $filme['id'];
-        include __DIR__ . '/../filmes/comentar.php';
-    ?>
+
     <div class="acoes-filme">
         <a href="index.php?p=listar" class="btn btn-voltar">Voltar à lista</a>
         

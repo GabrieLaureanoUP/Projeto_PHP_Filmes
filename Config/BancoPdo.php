@@ -3,7 +3,7 @@ class Database {
     private static $pdo;    public static function conectar() {
         if (!isset(self::$pdo)) {
             self::$pdo = new PDO(
-                'mysql:host=localhost;port=3307;dbname=imdb_filmes;charset=utf8mb4',
+                'mysql:host=localhost;port=3306;dbname=imdb_filmes;charset=utf8mb4',
                 'root',
                 '',
                 [

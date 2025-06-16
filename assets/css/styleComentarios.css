@@ -1,11 +1,11 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f0f0f0;
     padding: 20px;
-}
+} */
 
 /* Comentários - styleComentarios.css */
 .lista-comentarios {
@@ -117,13 +117,13 @@ body {
     color: white;
 }
 
-.botao-editar {
+/* .botao-editar {
     background-color: #007bff;
 }
 
 .botao-excluir {
     background-color: #dc3545;
-}
+} */
 
 .botao:hover {
     opacity: 0.8;
