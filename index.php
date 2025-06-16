@@ -29,8 +29,6 @@
         "detalhes" => FilmeController::detalhes(),        
         
         "comentar" => ComentarioController::comentar(),
-        "salvarComentario" => ComentarioController::salvarComentario(),
-        
         "avaliar" => AvaliacaoController::avaliar(),
         
         default => FilmeController::home()

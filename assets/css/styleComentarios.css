@@ -7,6 +7,72 @@ body {
     padding: 20px;
 }
 
+/* Comentários - styleComentarios.css */
+.lista-comentarios {
+    margin-top: 30px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.comentario {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.comentario:last-child {
+    border-bottom: none;
+}
+.comentario-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+.comentario-header strong {
+    color: #2d3e50;
+    font-size: 1.1em;
+}
+.comentario-header .data {
+    color: #888;
+    font-size: 0.95em;
+}
+.comentario-texto {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 1.05em;
+}
+.comentario-botoes {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    right: 16px;
+    bottom: 10px;
+}
+.comentario-botoes button {
+    background: none;
+    border: none;
+    color: #111;
+    font-size: 0.97em;
+    padding: 2px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: none;
+    font-weight: 500;
+}
+.comentario-botoes button:hover {
+    background: #f3f4f6;
+    color: #111;
+}
+.sem-comentarios {
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}
+
 .comentario-container {
     width: 70%;
     background: white;

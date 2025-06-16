@@ -59,42 +59,11 @@
         <?php endif; ?>
     </div>
 
-    <div class="comentarios-section">
-        <h3>Comentários</h3>
-          <?php if(isset($_SESSION['usuario'])): ?>            
-            <form method="POST" action="index.php?p=salvarComentario" class="comentario-form">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-                <input type="hidden" name="filme_id" value="<?= $filme['id'] ?>">
-                
-                <div class="form-group">
-                    <textarea name="texto" placeholder="Escreva seu comentário..." required></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-comentar">Enviar Comentário</button>
-            </form>
-        <?php endif; ?>
-        
-        <?php
-        require_once __DIR__ . '/../../Model/Comentario.php';
-        $comentarios = Comentario::listarComentariosPorFilme($filme['id']);
-        
-        if (!empty($comentarios)): ?>
-            <div class="lista-comentarios">
-                <?php foreach($comentarios as $comentario): ?>
-                    <div class="comentario">
-                        <div class="comentario-header">
-                            <strong><?= htmlspecialchars($comentario['nome_usuario']) ?></strong>
-                            <span class="data"><?= date('d/m/Y', strtotime($comentario['data_comentario'])) ?></span>
-                        </div>
-                        <p class="comentario-texto"><?= nl2br(htmlspecialchars($comentario['texto'])) ?></p>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php else: ?>
-            <p class="sem-comentarios">Ainda não há comentários para este filme.</p>
-        <?php endif; ?>
     </div>
-
+    <?php
+        $filme_id = $filme['id'];
+        include __DIR__ . '/../filmes/comentar.php';
+    ?>
     <div class="acoes-filme">
         <a href="index.php?p=listar" class="btn btn-voltar">Voltar à lista</a>
         
