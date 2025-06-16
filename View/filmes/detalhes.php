@@ -1,43 +1,23 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
 
+
 <div class="detalhes-filme">
+    <img src="<?= htmlspecialchars($filme['imagem']) ?>" alt="Capa do filme" style="max-width:100%;height:auto;">
     <h2><?= htmlspecialchars($filme['titulo']) ?></h2>
-    
-    <img src="<?= htmlspecialchars($filme['imagem']) ?>" alt="<?= htmlspecialchars($filme['titulo']) ?>">
-    
-    <div class="info-basica">
-        <p class="info-item">
-            <strong>Gênero:</strong> <?= htmlspecialchars($filme['genero']) ?>
-        </p>
-        <p class="info-item">
-            <strong>Ano:</strong> <?= htmlspecialchars($filme['ano']) ?>
-        </p>
-        <p class="info-item">
-            <strong>Diretor:</strong> <?= htmlspecialchars($filme['diretor']) ?>
-        </p>
-        <p class="info-item">
-            <strong>Duração:</strong> <?= htmlspecialchars($filme['duracao']) ?> min
-        </p>
-    </div>
-
+    <p><strong>Gênero:</strong> <?= htmlspecialchars($filme['genero']) ?></p>
+    <p><strong>Ano:</strong> <?= htmlspecialchars($filme['ano']) ?></p>
+    <p><strong>Diretor:</strong> <?= htmlspecialchars($filme['diretor']) ?></p>
+    <p><strong>Duração:</strong> <?= htmlspecialchars($filme['duracao']) ?> min</p>
+    <p><strong>Descrição:</strong></p>
     <div class="descricao-completa">
-        <h3>Sinopse</h3>
-        <?= nl2br(htmlspecialchars($filme['descricao'])) ?>
+    <?= nl2br(htmlspecialchars($filme['descricao'])) ?>
     </div>
 
-    <div class="avaliacao-section">
-        <?php if(isset($media)): ?>
-            <div class="media-avaliacoes">
-                <h3>Avaliação Média</h3>
-                <div class="nota"><?= number_format($media, 1) ?></div>
-            </div>
-        <?php else: ?>
-            <div class="media-avaliacoes">
-                <h3>Avaliação Média</h3>
-                <div class="nota">Sem avaliações</div>
-            </div>
-        <?php endif; ?>
+    <p><strong>Média das avaliações:</strong> 
+        <?= $media !== null ? $media : 'Ainda não há avaliações' ?>
+    </p>
 
+<<<<<<< HEAD
         <?php if(isset($_SESSION['usuario'])): ?>
             <form method="POST" action="index.php?p=salvar_avaliacao" class="avaliacao-form">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
@@ -81,3 +61,7 @@
 </div>
 
 <?php include __DIR__ . '/../partials/footer.php'; ?>
+=======
+    <p><strong>Total de avaliações:</strong> 
+        <?= $totalAvaliacoes > 0 ? $totalAvaliacoes : 'Nenhuma avaliação ainda' ?>
+>>>>>>> b84a8710e877aac9d0a929206f91b0680f794de0

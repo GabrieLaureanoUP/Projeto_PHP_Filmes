@@ -17,6 +17,7 @@
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
     <button type="submit">Enviar Comentário</button>
 </form>
+<<<<<<< HEAD
 
 <?php
 require_once __DIR__ . '/../../Model/Comentario.php';
@@ -51,4 +52,10 @@ if (!empty($comentarios) && is_array($comentarios)): ?>
 <?php else: ?>
     <p class="sem-comentarios">Ainda não há comentários para este filme.</p>
 <?php endif; ?>
+=======
+<?php
+    require_once __DIR__ . "/../../Controller/ComentarioController.php";
+    ComentarioController::exibirComentarios($filme_id);
+?>
+>>>>>>> b84a8710e877aac9d0a929206f91b0680f794de0
 
