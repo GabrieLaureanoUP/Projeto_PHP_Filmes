@@ -1,7 +1,6 @@
 <?php include __DIR__ . '/partials/header.php'; ?>
 
 <div class="home-container">
-    <!-- Seção de Boas-vindas -->
     <section class="welcome-section">
         <h1>Bem-vindo ao Catálogo de Filmes</h1>
         <p class="intro-text">
@@ -12,7 +11,6 @@
         </p>
     </section>
 
-    <!-- Estatísticas -->
     <section class="stats-section">
         <h2>Estatísticas da Plataforma</h2>
         <div class="stats-grid">
@@ -31,7 +29,6 @@
         </div>
     </section>
 
-    <!-- Filmes Populares -->
     <section class="popular-section">
         <h2>Filmes Populares</h2>
         <div class="filmes-grid">

@@ -64,7 +64,7 @@ class Filme {
     }
 
     public static function buscarPorNomeOuGenero($termo) {
-        $termo = trim($termo); // Remove espaços extras
+        $termo = trim($termo); 
         
         $sql = "SELECT * FROM filmes WHERE 
                 UPPER(titulo) = UPPER(:termo) OR 
