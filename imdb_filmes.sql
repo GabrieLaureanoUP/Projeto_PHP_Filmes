@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15/06/2025 às 20:31
+-- Tempo de geração: 16/06/2025 às 17:15
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -51,15 +51,18 @@ CREATE TABLE `comentarios` (
   `id` int(10) UNSIGNED NOT NULL,
   `filme_id` int(10) UNSIGNED NOT NULL,
   `usuario_id` int(10) UNSIGNED NOT NULL,
-  `comentario` text NOT NULL
+  `comentario` text NOT NULL,
+  `data_comentario` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `comentarios`
 --
 
-INSERT INTO `comentarios` (`id`, `filme_id`, `usuario_id`, `comentario`) VALUES
-(1, 2, 1, '-Marca com certeza um grande início de uma série bem consagrada.\r\n-É bom ver o começo,até mesmo do elenco,assim podemos acompanhar seus progressos.\r\n-Ótimo começo,pra uma verdadeira saga.');
+INSERT INTO `comentarios` (`id`, `filme_id`, `usuario_id`, `comentario`, `data_comentario`) VALUES
+(1, 2, 1, '-Marca com certeza um grande início de uma série bem consagrada.\r\n-É bom ver o começo,até mesmo do elenco,assim podemos acompanhar seus progressos.\r\n-Ótimo começo,pra uma verdadeira saga.', '2025-06-16'),
+(2, 2, 2, 'Muito bom, primeiro filme da saga!', '2025-06-16'),
+(3, 6, 2, 'Obra prima do cinema brasileiro!', '2025-06-16');
 
 -- --------------------------------------------------------
 
@@ -113,7 +116,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `cpf`, `data_nasc`) VALUES
-(1, 'joao', 'joao@gmail.com', '$2y$10$5i/fNt.xdsl4N6dRZsuBz.8.ff.RGmI7Ww4vf.5RYoNe2F5EHDHn.', '12345678910', '1998-09-15');
+(1, 'joao', 'joao@gmail.com', '$2y$10$5i/fNt.xdsl4N6dRZsuBz.8.ff.RGmI7Ww4vf.5RYoNe2F5EHDHn.', '12345678910', '1998-09-15'),
+(2, 'Maria', 'maria@gmail.com', '$2y$10$1FR8OhJdXx3pVHCBMbd1xupJILL8UTzxU9ftP.aFUPZSkM346g2GG', '98765432100', '1995-07-16');
 
 --
 -- Índices para tabelas despejadas
@@ -162,7 +166,7 @@ ALTER TABLE `avaliacoes`
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `filmes`
@@ -174,7 +178,7 @@ ALTER TABLE `filmes`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para tabelas despejadas

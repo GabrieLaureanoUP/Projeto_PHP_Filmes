@@ -25,7 +25,6 @@
         <?= nl2br(htmlspecialchars($filme['descricao'])) ?>
     </div>
 
-    <!-- Seção de Avaliação -->
     <div class="avaliacao-section">
         <?php if(isset($media)): ?>
             <div class="media-avaliacoes">
@@ -40,7 +39,6 @@
         <?php endif; ?>
 
         <?php if(isset($_SESSION['usuario'])): ?>
-            <!-- Formulário de Avaliação inline -->
             <form method="POST" action="index.php?p=salvar_avaliacao" class="avaliacao-form">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 <input type="hidden" name="filme_id" value="<?= $filme['id'] ?>">
@@ -61,13 +59,10 @@
         <?php endif; ?>
     </div>
 
-    <!-- Comentários e Formulário -->
     <div class="comentarios-section">
         <h3>Comentários</h3>
-        
-        <?php if(isset($_SESSION['usuario'])): ?>
-            <!-- Formulário de Comentário inline -->
-            <form method="POST" action="index.php?p=salvar_comentario" class="comentario-form">
+          <?php if(isset($_SESSION['usuario'])): ?>            
+            <form method="POST" action="index.php?p=salvarComentario" class="comentario-form">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 <input type="hidden" name="filme_id" value="<?= $filme['id'] ?>">
                 
@@ -78,6 +73,27 @@
                 <button type="submit" class="btn btn-comentar">Enviar Comentário</button>
             </form>
         <?php endif; ?>
+        
+        <?php
+        require_once __DIR__ . '/../../Model/Comentario.php';
+        $comentarios = Comentario::listarComentariosPorFilme($filme['id']);
+        
+        if (!empty($comentarios)): ?>
+            <div class="lista-comentarios">
+                <?php foreach($comentarios as $comentario): ?>
+                    <div class="comentario">
+                        <div class="comentario-header">
+                            <strong><?= htmlspecialchars($comentario['nome_usuario']) ?></strong>
+                            <span class="data"><?= date('d/m/Y', strtotime($comentario['data_comentario'])) ?></span>
+                        </div>
+                        <p class="comentario-texto"><?= nl2br(htmlspecialchars($comentario['texto'])) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="sem-comentarios">Ainda não há comentários para este filme.</p>
+        <?php endif; ?>
+    </div>
 
     <div class="acoes-filme">
         <a href="index.php?p=listar" class="btn btn-voltar">Voltar à lista</a>

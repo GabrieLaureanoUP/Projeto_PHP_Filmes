@@ -828,6 +828,92 @@ form:not(.inline-form) {
     margin-bottom: 15px;
 }
 
+/* Comentários */
+.comentarios-section {
+    margin: 30px 0;
+}
+
+.comentarios-section h3 {
+    color: #032541;
+    margin-bottom: 20px;
+}
+
+.comentario-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.comentario-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: 15px;
+}
+
+.lista-comentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.comentario {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.comentario-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.comentario-header strong {
+    color: #032541;
+}
+
+.comentario-header .data {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.comentario-texto {
+    line-height: 1.6;
+    color: #444;
+}
+
+.sem-comentarios {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.btn-comentar {
+    background: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-comentar:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .welcome-section h1 {

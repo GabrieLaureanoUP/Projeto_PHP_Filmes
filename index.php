@@ -26,9 +26,11 @@
         "atualizar" => FilmeController::atualizar(),
         "excluir" => FilmeController::excluir(),
         "buscarNomeGenero" => FilmeController::buscarNomeGenero(),
-        "detalhes" => FilmeController::detalhes(),
+        "detalhes" => FilmeController::detalhes(),        
+        
         "comentar" => ComentarioController::comentar(),
-        "listarComentarios" => ComentarioController::exibirComentarios(),
+        "salvarComentario" => ComentarioController::salvarComentario(),
+        
         "avaliar" => AvaliacaoController::avaliar(),
         
         default => FilmeController::home()

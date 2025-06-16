@@ -2,33 +2,33 @@
 
 require_once __DIR__ . "/../Config/BancoPdo.php";
 
-class Comentario{
-    public static function salvarComentario($filme_id, $usuario_id, $comentario){
-        try {
-            echo '<div style="color:blue;">DEBUG: filme_id=' . htmlspecialchars($filme_id) . ' usuario_id=' . htmlspecialchars($usuario_id) . ' comentario=' . htmlspecialchars($comentario) . '</div>';
-            $sql = "SELECT id FROM comentarios WHERE filme_id = :filme_id AND usuario_id = :usuario_id";
-
-            $stmt = Database::conectar()->prepare($sql);
-            $stmt->execute([
-              'filme_id' => $filme_id,
-              'usuario_id' => $usuario_id,
-            ]);
-
+class Comentario{    
+    public static function criarComentario($filme_id, $usuario_id, $texto) {
+        $sql = "INSERT INTO comentarios (filme_id, usuario_id, comentario) 
+                VALUES (:filme_id, :usuario_id, :comentario)";
+                
+        $stmt = Database::conectar()->prepare($sql);
+        $resultado = $stmt->execute([
+            'filme_id' => $filme_id,
+            'usuario_id' => $usuario_id,
+            'comentario' => $texto
+        ]);
         
-            $sql = 'INSERT INTO comentarios (filme_id, usuario_id, comentario) VALUES (:filme_id, :usuario_id, :comentario)';
-
-            $stmt = Database::conectar()->prepare($sql);
-            $result = $stmt->execute([
-                'filme_id' => $filme_id,
-                'usuario_id' => $usuario_id,
-                'comentario' => $comentario
-            ]);
-            echo '<div style="color:green;">DEBUG: execute result = ' . var_export($result, true) . '</div>';
-            return $result;
-        } catch (PDOException $e) {
-            echo '<div style="color:red;">Erro PDO: ' . htmlspecialchars($e->getMessage()) . '</div>';
-            return false;
-        }
+        return $resultado;
+    }
+    public static function listarComentariosPorFilme($filme_id) {
+        $sql = "SELECT c.*, c.comentario as texto, IFNULL(c.data_comentario, NOW()) as data_comentario, u.nome as nome_usuario 
+                FROM comentarios c 
+                JOIN usuarios u ON c.usuario_id = u.id 
+                WHERE c.filme_id = :filme_id";
+                
+        $stmt = Database::conectar()->prepare($sql);
+        $stmt->execute(['filme_id' => $filme_id]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }    
+    public static function salvarComentario($filme_id, $usuario_id, $comentario){
+        return self::criarComentario($filme_id, $usuario_id, $comentario);
     }
 
     public static function obterComentariosPorFilme($filme_id) {
