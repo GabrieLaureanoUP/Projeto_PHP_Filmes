@@ -55,35 +55,35 @@ class ComentarioController {
         }
     }
 
-    public static function exibirComentarios($filme_id) {
-        $comentarios = Comentario::obterComentariosPorFilme($filme_id);
-        echo '<link rel="stylesheet" href="styleComentarios.css">';
-        if ($comentarios) {
-           echo '<div class="comentarios-wrapper">';
+public static function exibirComentarios() {
+    $filme_id = $_SESSION['filme_id'] ?? null;
 
-            foreach ($comentarios as $comentario) {
-                echo '<div class="comentario-container">';
-
-                $usuario = Comentario::obterNomeUsuario($comentario['usuario_id']);
-                if ($usuario) {
-                    echo '<div class="usuario-nome">' . htmlspecialchars($usuario['nome']) . '</div>';
-                } else {
-                    echo '<div class="usuario-nome">Usuário não encontrado</div>';
-                }
-
-                echo '<div class="comentario-texto">' . htmlspecialchars($comentario['comentario']) . '</div>';
-
-                echo '<div class="botoes">';
-                echo '<button class="botao botao-editar">Editar</button>';
-                echo '<button class="botao botao-excluir">Excluir</button>';
-                echo '</div>';
-
-                echo '</div>';
-            }
-
-            echo '</div>';
-        } else {
-            echo '<div class="nenhum-comentario"><strong>Nenhum comentário feito!</strong></div>';
-        }
+    if (!$filme_id) {
+        echo "<div class='nenhum-comentario'><strong>Filme não especificado!</strong></div>";
+        return;
     }
+
+    $comentarios = Comentario::obterComentariosPorFilme($filme_id);
+    echo '<link rel="stylesheet" href="styleComentarios.css">';
+    
+    if ($comentarios) {
+        echo '<div class="comentarios-wrapper">';
+        
+        foreach ($comentarios as $comentario) {
+            echo '<div class="comentario-container">';
+            $usuario = Comentario::obterNomeUsuario($comentario['usuario_id']);
+            echo '<div class="usuario-nome">' . htmlspecialchars($usuario ? $usuario['nome'] : 'Usuário não encontrado') . '</div>';
+            echo '<div class="comentario-texto">' . htmlspecialchars($comentario['comentario']) . '</div>';
+            echo '<div class="botoes">';
+            echo '<button class="botao botao-editar">Editar</button>';
+            echo '<button class="botao botao-excluir">Excluir</button>';
+            echo '</div>';
+            echo '</div>';
+        }
+
+        echo '</div>';
+    } else {
+        echo '<div class="nenhum-comentario"><strong>Nenhum comentário feito!</strong></div>';
+    }
+}
 }

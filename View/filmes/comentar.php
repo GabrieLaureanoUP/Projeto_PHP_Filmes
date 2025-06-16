@@ -18,36 +18,6 @@
     <button type="submit">Enviar Comentário</button>
 </form>
 <?php
-<<<<<<< HEAD
-    require_once __DIR__ . "/../../Controller/ComentarioController.php";
-    ComentarioController::exibirComentarios($filme_id);
-=======
-    require_once __DIR__ . "/../../Config/BancoPdo.php";
-    $sql = "SELECT usuario_id, comentario FROM comentarios WHERE filme_id = :filme_id";
-    $stmt = Database::conectar()->prepare($sql);
-    $stmt->execute(['filme_id' => $filme_id, 'usuario_id' => $usuario_id]);
-    $comentarios = $stmt->fetchAll();
-
-    $sqlNome = "SELECT nome FROM usuarios WHERE usuario_id = :usuario_id";
-    $stmt = Database::conectar()->prepare($sql);
-    $stmt->execute(['nome' => $nomeUsuario]);
-    $usuario = $stmt->fetchAll();
-    
-    
-    if($comentarios){
-    foreach ($comentarios as $comentario) {
-        echo "<div class='comentario'>";
-        $sqlNome = "SELECT nome FROM usuarios WHERE usuario_id = :usuario_id";
-        $stmtNome = Database::conectar()->prepare($sqlNome);
-        $stmtNome->execute(['usuario_id' => $comentario['usuario_id']]);
-        $usuario = $stmtNome->fetch();
-        $nomeUsuario = $usuario ? htmlspecialchars($usuario['nome']) : 'Usuário desconhecido';
-        echo "<strong>" . $nomeUsuario . "</strong>: " . htmlspecialchars($comentario['comentario']);
-        echo "</div>";
-    }
-    } else {
-        echo "<strong>Nenhum comentário feito!</strong>";
-    }
->>>>>>> 9f61cbd6b51ec33adf8fc03dae448dc6d0f8e438
+    header("Location: index.php?p=listarComentarios&id={$filme_id}");
 ?>
 
