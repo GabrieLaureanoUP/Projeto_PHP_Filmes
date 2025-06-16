@@ -34,13 +34,15 @@
     if($comentarios){
     foreach ($comentarios as $comentario) {
         echo "<div class='comentario'>";
-        <?php  $sqlNome = "SELECT nome FROM usuarios WHERE usuario_id = :usuario_id";
-    $stmt = Database::conectar()->prepare($sql);
-    $stmt->execute(['nome' => $nomeUsuario]);
-    $usuario = $stmt->fetchAll(); ?>
-        echo "<strong>" . $usuario . "</strong>: " . htmlspecialchars($comentario['comentario']);
+        $sqlNome = "SELECT nome FROM usuarios WHERE usuario_id = :usuario_id";
+        $stmtNome = Database::conectar()->prepare($sqlNome);
+        $stmtNome->execute(['usuario_id' => $comentario['usuario_id']]);
+        $usuario = $stmtNome->fetch();
+        $nomeUsuario = $usuario ? htmlspecialchars($usuario['nome']) : 'Usuário desconhecido';
+        echo "<strong>" . $nomeUsuario . "</strong>: " . htmlspecialchars($comentario['comentario']);
         echo "</div>";
-    }}else{
+    }
+    } else {
         echo "<strong>Nenhum comentário feito!</strong>";
     }
 ?>
