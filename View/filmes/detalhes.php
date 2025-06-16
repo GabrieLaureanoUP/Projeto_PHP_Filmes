@@ -17,25 +17,14 @@
         <?= $media !== null ? $media : 'Ainda não há avaliações' ?>
     </p>
 
-        <?php if(isset($_SESSION['usuario'])): ?>
-            <form method="POST" action="index.php?p=salvar_avaliacao" class="avaliacao-form">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-                <input type="hidden" name="filme_id" value="<?= $filme['id'] ?>">
-                
-                <div class="rating-container">
-                    <h4>Sua Avaliação</h4>
-                    <div class="star-rating">
-                        <?php for($i = 10; $i >= 1; $i--): ?>
-                            <input type="radio" id="star<?= $i ?>" name="nota" value="<?= $i ?>" 
-                                <?= (isset($nota_atual) && $nota_atual == $i) ? 'checked' : '' ?>>
-                            <label for="star<?= $i ?>"><?= $i ?></label>
-                        <?php endfor; ?>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn btn-avaliar">Salvar Avaliação</button>
-            </form>
-        <?php endif; ?>
+    <?php
+        include __DIR__ . '/avaliar.php';
+    ?>
+
+    <?php
+        $filme_id = $filme['id'];
+        include __DIR__ . '/../filmes/comentar.php';
+    ?>
     </div>
 
     </div>
@@ -52,7 +41,7 @@
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 <button type="submit" class="btn btn-editar">Editar</button>
             </form>         
-               
+
             <form method="POST" action="index.php?p=excluir" class="delete-form" 
                   onsubmit="return confirm('Tem certeza que deseja excluir este filme?');">
                 <input type="hidden" name="id" value="<?= $filme['id'] ?>">
