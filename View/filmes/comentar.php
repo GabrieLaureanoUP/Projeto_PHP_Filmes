@@ -39,6 +39,7 @@ if (!empty($comentarios) && is_array($comentarios)): ?>
                         <button type="submit">Editar</button>
                     </form>
                     <form method="POST" action="index.php?p=excluirComentario" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este comentário?');">
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                         <input type="hidden" name="comentario_id" value="<?= $comentario['id'] ?>">
                         <input type="hidden" name="filme_id" value="<?= $filme_id ?>">
                         <button type="submit">Excluir</button>

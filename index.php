@@ -30,6 +30,7 @@
         
         "comentar" => ComentarioController::comentar(),
         "editarComentario" => ComentarioController::editar(),
+        "excluirComentario" => ComentarioController::excluir(),
         "atualizarComentario" => ComentarioController::atualizar(),
         "avaliar" => AvaliacaoController::avaliar(),
         

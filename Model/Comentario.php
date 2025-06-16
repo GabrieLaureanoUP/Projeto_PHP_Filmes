@@ -62,4 +62,10 @@ class Comentario{
             'comentario_id' => $comentario_id
         ]);
     }
+
+    public static function excluirComentario($comentario_id) {
+        $sql = "DELETE FROM comentarios WHERE id = :comentario_id";
+        $stmt = Database::conectar()->prepare($sql);
+        return $stmt->execute(['comentario_id' => $comentario_id]);
+    }
 }

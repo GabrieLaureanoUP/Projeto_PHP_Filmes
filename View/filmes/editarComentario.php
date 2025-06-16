@@ -7,7 +7,7 @@
         <input type="hidden" name="id" value="<?= htmlspecialchars($comentario_id ?? '') ?>">
         <input type="hidden" name="filme_id" value="<?= htmlspecialchars($filme_id ?? '') ?>">
         <label for="comentario" class="label-editar-comentario">Comentário:</label>
-        <textarea name="comentario" id="comentario" rows="5" required class="textarea-editar-comentario"><?= htmlspecialchars($comentario['comentario'] ?? $comentario_texto ?? '') ?></textarea>
+        <textarea name="novoComentario" id="comentario" rows="5" required class="textarea-editar-comentario"><?= htmlspecialchars($comentario['comentario'] ?? $comentario_texto ?? '') ?></textarea>
         <button type="submit" class="btn-editar-comentario">Salvar Alteração</button>
     </form>
 </div>
