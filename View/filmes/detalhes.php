@@ -47,8 +47,12 @@
         <a href="index.php?p=listar" class="btn btn-voltar">Voltar à lista</a>
         
         <?php if(isset($_SESSION['usuario'])): ?>
-            <a href="index.php?p=editar&id=<?= $filme['id'] ?>" class="btn btn-editar">Editar</a>
-            
+            <form method="POST" action="index.php?p=editar">
+                <input type="hidden" name="id" value="<?= $filme['id'] ?>">
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                <button type="submit" class="btn btn-editar">Editar</button>
+            </form>         
+               
             <form method="POST" action="index.php?p=excluir" class="delete-form" 
                   onsubmit="return confirm('Tem certeza que deseja excluir este filme?');">
                 <input type="hidden" name="id" value="<?= $filme['id'] ?>">
