@@ -630,6 +630,19 @@ form:not(.inline-form) {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+.detalhes-filme p:has(strong) {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #032541;
+    font-weight: bold;
+    font-size: 1.18em;
+    padding: 8px 22px;
+    border-radius: 22px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(1,180,228,0.06);
+    letter-spacing: 0.5px;
+}
+
 .detalhes-filme h2 {
     color: #032541;
     font-size: 2.2rem;
