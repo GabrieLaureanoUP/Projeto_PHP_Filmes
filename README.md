@@ -32,4 +32,3 @@ O projeto segue a arquitetura MVC (Model-View-Controller):
 - PHP 8+
 - MySQL
 - HTML5, CSS3
-- JavaScript
