@@ -16,20 +16,20 @@ class Comentario{
         
         return $resultado;
     }
-    public static function listarComentariosPorFilme($filme_id) {
-        $sql = "SELECT c.*, c.comentario as texto, IFNULL(c.data_comentario, NOW()) as data_comentario, u.nome as nome_usuario 
-                FROM comentarios c 
-                JOIN usuarios u ON c.usuario_id = u.id 
-                WHERE c.filme_id = :filme_id";
+    // public static function listarComentariosPorFilme($filme_id) {
+    //     $sql = "SELECT c.*, c.comentario as texto, IFNULL(c.data_comentario, NOW()) as data_comentario, u.nome as nome_usuario 
+    //             FROM comentarios c 
+    //             JOIN usuarios u ON c.usuario_id = u.id 
+    //             WHERE c.filme_id = :filme_id";
                 
-        $stmt = Database::conectar()->prepare($sql);
-        $stmt->execute(['filme_id' => $filme_id]);
+    //     $stmt = Database::conectar()->prepare($sql);
+    //     $stmt->execute(['filme_id' => $filme_id]);
         
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }    
-    public static function salvarComentario($filme_id, $usuario_id, $comentario){
-        return self::criarComentario($filme_id, $usuario_id, $comentario);
-    }
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }    
+    // public static function salvarComentario($filme_id, $usuario_id, $comentario){
+    //     return self::criarComentario($filme_id, $usuario_id, $comentario);
+    // }
 
     public static function obterComentariosPorFilme($filme_id) {
         $sql = "SELECT usuario_id, comentario FROM comentarios WHERE filme_id = :filme_id";

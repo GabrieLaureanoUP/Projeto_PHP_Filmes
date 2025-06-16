@@ -30,8 +30,9 @@
         
         "comentar" => ComentarioController::comentar(),
         "listarComentarios" => ComentarioController::exibirComentarios(),
+        // "salvarComentario" => ComentarioController::salvarComentario(),
 
-        "listarComentarios" => ComentarioController::exibirComentarios(),
+
         "avaliar" => AvaliacaoController::avaliar(),
         
         default => FilmeController::home()
