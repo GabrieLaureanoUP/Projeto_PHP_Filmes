@@ -126,7 +126,8 @@
                 $csrf_token = $_POST['csrf_token'] ?? null;
                 
                 if (!$csrf_token || $csrf_token !== $_SESSION['csrf_token']) {
-                    echo "Erro de segurança!";                } else {
+                    echo "Erro de segurança!";                
+                } else {
                     $nome = trim($_POST['nome'] ?? '');
                     $email = $_POST['email'] ?? '';
                     $email = trim($email);

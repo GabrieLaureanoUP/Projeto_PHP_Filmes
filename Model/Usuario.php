@@ -14,13 +14,6 @@ require_once __DIR__ . "/../Config/BancoPdo.php";
         $user = $stmt->fetch();
 
         if ($user && password_verify($senha, $user['senha'])) {
-            // if (session_status() === PHP_SESSION_NONE) {
-            //     session_start();
-            // }
-            // $_SESSION['usuario_id'] = $user['id'];
-            // $_SESSION['usuario_nome'] = $user['nome'];
-
-            // return true;
             return $user;
         }
 
