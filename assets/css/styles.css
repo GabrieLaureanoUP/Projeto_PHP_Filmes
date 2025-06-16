@@ -620,6 +620,214 @@ form:not(.inline-form) {
     transform: translateY(-2px);
 }
 
+/* Estilos da página de detalhes */
+.detalhes-filme {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.detalhes-filme h2 {
+    color: #032541;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #01b4e4;
+}
+
+.detalhes-filme h3 {
+    color: #032541;
+    font-size: 1.5rem;
+    margin: 20px 0 15px 0;
+}
+
+.info-basica {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.info-item {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.info-item strong {
+    color: #032541;
+    margin-right: 8px;
+}
+
+.descricao-completa {
+    line-height: 1.8;
+    color: #333;
+    font-size: 1.1rem;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.avaliacao-section {
+    text-align: center;
+    padding: 25px;
+    margin: 30px 0;
+    background: linear-gradient(135deg, #032541 0%, #01b4e4 100%);
+    color: white;
+    border-radius: 8px;
+}
+
+.media-avaliacoes .nota {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.sua-nota {
+    font-size: 1.2rem;
+    margin: 15px 0;
+}
+
+.acoes-avaliacao {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Botões */
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-voltar {
+    background: #032541;
+    color: white;
+}
+
+/* Formulário de comentário */
+.comentar-form {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.comentar-form h2 {
+    color: #032541;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #01b4e4;
+}
+
+.comentar-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background: #01b4e4;
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+/* Estilo para a imagem na página de detalhes */
+.detalhes-filme img {
+    max-width: 1000px;
+    height: auto;
+    width: auto;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin: 0 auto 25px;
+    display: block;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.avaliacao-form {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.avaliacao-form h4 {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.star-rating {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    cursor: pointer;
+    font-size: 30px;
+    padding: 0 5px;
+    color: #ddd;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+    color: #ffcc00;
+}
+
+.comentario-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.comentario-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: 15px;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .welcome-section h1 {
